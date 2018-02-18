@@ -11,6 +11,8 @@ class CourseTag < ApplicationRecord
 
   toggleable :visible
 
+  mount_uploader :image, CourseImageUploader
+
   before_validation { self.slug = Canonizer.transliterate(name.to_s) if slug.blank? }
   before_validation { self.slug = slug.to_s.downcase }
   validates_length_of :name, maximum: NAME_LIMIT

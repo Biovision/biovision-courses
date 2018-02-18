@@ -9,6 +9,8 @@ class CourseCategory < ApplicationRecord
 
   toggleable :visible
 
+  mount_uploader :image, CourseImageUploader
+
   belongs_to :parent, class_name: CourseCategory.to_s, optional: true, touch: true
   has_many :child_categories, class_name: CourseCategory.to_s, foreign_key: :parent_id, dependent: :destroy
   has_many :courses, dependent: :destroy
