@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180218120005) do
+ActiveRecord::Schema.define(version: 20180218120010) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,16 @@ ActiveRecord::Schema.define(version: 20180218120005) do
     t.string "image"
     t.string "parents_cache", default: "", null: false
     t.integer "children_cache", default: [], null: false, array: true
+  end
+
+  create_table "course_tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.boolean "visible", default: true, null: false
+    t.integer "courses_count", default: 0, null: false
+    t.string "name", null: false
+    t.string "slug", null: false
+    t.string "image"
   end
 
   create_table "editable_pages", force: :cascade do |t|

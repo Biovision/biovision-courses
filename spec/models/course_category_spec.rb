@@ -7,10 +7,19 @@ RSpec.describe CourseCategory, type: :model do
     expect(subject).to be_valid
   end
 
+  it_behaves_like 'normalizes_priority', (1..500)
+  it_behaves_like 'requires_name'
+  it_behaves_like 'limits_max_name_length', 50
+  it_behaves_like 'limits_max_slug_length', 50
+  it_behaves_like 'rejects_invalid_slug', 'invalid slug'
+  it_behaves_like 'normalizes_blank_slug_using_name', 'ПРОВЕРКА', 'proverka'
+  it_behaves_like 'normalizes_existing_slug', 'Test', 'test'
+
   describe 'after initialize' do
     it 'sets next priority' do
       subject.save!
-      expect(CourseCategory.new.priority).to eq(subject.priority + 1)
+      entity = CourseCategory.new(parent: subject.parent)
+      expect(entity.priority).to eq(subject.priority + 1)
     end
   end
 
@@ -27,32 +36,6 @@ RSpec.describe CourseCategory, type: :model do
   end
 
   describe 'before validation' do
-    it 'normalizes too low priority' do
-      subject.priority = 0
-      subject.valid?
-      expect(subject.priority).to eq(1)
-    end
-
-    it 'normalizes too high priority' do
-      subject.priority = 501
-      subject.valid?
-      expect(subject.priority).to eq(500)
-    end
-
-    it 'normalizes blank slug' do
-      subject.name = 'TEST'
-      subject.slug = ''
-      subject.valid?
-      expect(subject.slug).to eq('test')
-    end
-
-    it 'keeps non-blank slug intact (but lower-cased)' do
-      subject.name = 'New name'
-      subject.slug = 'Test'
-      subject.valid?
-      expect(subject.slug).to eq('test')
-    end
-
     it 'generates long slug' do
       subject.save!
       entity = build(:course_category, parent: subject)
@@ -62,12 +45,6 @@ RSpec.describe CourseCategory, type: :model do
   end
 
   describe 'validation' do
-    it 'fails without name' do
-      subject.name = ' '
-      expect(subject).not_to be_valid
-      expect(subject.errors.messages).to have_key(:name)
-    end
-
     it 'fails with non-unique slug for the same parent' do
       subject.slug = 'test'
       create :course_category, slug: subject.slug, parent: subject.parent
@@ -92,24 +69,6 @@ RSpec.describe CourseCategory, type: :model do
       parent = create :course_category
       create :course_category, name: subject.name, slug: 'other', parent: parent
       expect(subject).to be_valid
-    end
-
-    it 'fails with too long name' do
-      subject.name = 'a' * 51
-      expect(subject).not_to be_valid
-      expect(subject.errors.messages).to have_key(:name)
-    end
-
-    it 'fails with too long slug' do
-      subject.slug = 'a' * 51
-      expect(subject).not_to be_valid
-      expect(subject.errors.messages).to have_key(:slug)
-    end
-
-    it 'fails when slug does not match pattern' do
-      subject.slug = 'invalid slug'
-      expect(subject).not_to be_valid
-      expect(subject.errors.messages).to have_key(:slug)
     end
   end
 end
