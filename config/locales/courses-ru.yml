@@ -1,0 +1,101 @@
+ru:
+  course_count:
+    zero: "курсов нет"
+    one: "%{count} курс"
+    few: "%{count} курса"
+    many: "%{count} курсов"
+    other: "%{count} курсов"
+  activerecord:
+    models:
+      course: "Курс"
+      course_category: "Категория курса"
+    attributes:
+      course:
+        course_category: "Категория"
+        course_category_id: "Категория"
+        image: "Изображение"
+        image_alt_text: "Альтернативный текст для изображения"
+        language_id: "Язык"
+        lead: "Аннотация"
+        meta_description: "Описание для метатэга"
+        meta_keywords: "Ключевые слова для метатэга"
+        meta_title: "Название для заголовка окна"
+        slug: "Идентификатор для URL"
+        tags_cache: "Метки"
+        title: "Название"
+        user: "Автор"
+        uuid: "UUID"
+        visible: "Показывать"
+      course_category:
+        children_cache: "Кеш дочек"
+        course_type: "Тип курса"
+        course_type_id: "Тип курса"
+        image: "Картинка"
+        name: "Название"
+        parent_id: "Родительская категория"
+        parents_cache: "Кеш родителей"
+        priority: "Порядок сортировки"
+        slug: "Идентификатор"
+        visible: "Показывать"
+  admin:
+    course_categories:
+      show:
+        title: "Категория курсов «%{name}»"
+        children: "Дочерние категории"
+        new_child: "Добавить дочернюю категорию"
+    courses:
+      nav_item:
+        description: "Управление курсами"
+        text: "Курсы"
+      index:
+        heading: "Курсы"
+        title: "Курсы, страница %{page}"
+      show:
+        title: "Курс «%{name}»"
+    index:
+      dashboard:
+        biovision_courses:
+          heading: "Модуль курсов"
+  course_categories:
+    new:
+      title: "Новая категория курсов"
+      heading: "Добавление категории курсов"
+    edit:
+      title: "Редактирование категории курсов"
+      heading: "Редактирование категории курсов"
+      forbidden: "Редактирование этой категории курсов запрещено"
+    update:
+      success: "Категория курсов успешно изменена"
+    destroy:
+      success: "Категория курсов успешно удалена"
+    form:
+      guidelines:
+        name: "Максимум 50 символов."
+        slug: "Используется в URL. Только латинские буквы, цифры и дефис (кроме первого и последнего символа), максимум 50 символов."
+  posts:
+    edit:
+      title: "Редактирование курса"
+      heading: "Редактирование курса"
+    destroy:
+      success: "Курс успешно удалена"
+    form:
+      guidelines:
+        author_name: "Если указать, будет отображаться вместо текущего пользователя"
+        author_title: "Например, должность или звание"
+        author_url: "Если указать, имя автора будет ссылкой сюда"
+        image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
+        image_alt_text: "Краткое описание того, что происходит на картинке. До 200 символов."
+        image_author_link: "Будет открываться при нажатии на имя автора картинки."
+        image_author_name: "ФИО или название организации. Будет отображаться в подписи к картинке."
+        image_name: "Будет отображаться в качестве подписи к картинке."
+        lead: "Краткая суть, максимум 350 символов."
+        meta_description: "50–55 слов. Максимум 250 символов."
+        meta_keywords: "Максимум 250 символов."
+        meta_title: "Если указать, будет отображаться в заголовке окна вместо названия. Максимум 250 символов."
+        slug: "Только латинские буквы, цифры, точки, дефисы и подчёркивания. Максимум 200 символов."
+        source: "Название источника курса (агентство и т.п.)"
+        source_link: "Будет открываться при нажатии на название источника"
+        title: "Максимум 140 символов."
+      placeholders:
+        image_author_link: "https://example.com/user42"
+        source_link: "https://example.org/posts/123"
