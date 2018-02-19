@@ -1,4 +1,5 @@
 class Course < ApplicationRecord
+  include HasOwner
   include Toggleable
 
   PER_PAGE = 24
