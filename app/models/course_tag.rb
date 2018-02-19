@@ -38,4 +38,8 @@ class CourseTag < ApplicationRecord
   def self.entity_parameters
     %i(visible image name slug)
   end
+
+  def image_alt_text
+    name
+  end
 end

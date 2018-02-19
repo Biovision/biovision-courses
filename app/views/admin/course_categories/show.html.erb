@@ -1,0 +1,83 @@
+<% content_for :meta_title, t('.title', name: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.course_categories.nav_item.text'), admin_course_categories_path) %>
+  <% @entity.parents.each do |parent| %>
+    <%= admin_course_category_link(parent) %>
+  <% end %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_course_categories_path) %></li>
+    <li><%= edit_icon(edit_course_category_path(@entity.id)) %></li>
+  </ul>
+
+  <dl>
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.course_category.image') %></dt>
+      <dd>
+        <figure>
+          <%= link_to(course_image_small(@entity), @entity.image.url) %>
+        </figure>
+      </dd>
+    <% end %>
+
+    <% unless @entity.parent.nil? %>
+      <dt><%= t('activerecord.attributes.course_category.parent_id') %></dt>
+      <dd><%= admin_course_category_link(@entity.parent) %></dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.course_category.slug') %></dt>
+    <dd><%= @entity.slug %> (<%= @entity.long_slug %>)</dd>
+
+    <dt><%= t('activerecord.attributes.course_category.priority') %></dt>
+    <dd><%= @entity.priority %></dd>
+
+    <% unless @entity.parents_cache.blank? %>
+      <dt><%= t('activerecord.attributes.course_category.parents_cache') %></dt>
+      <dd><%= @entity.parents_cache %></dd>
+    <% end %>
+
+    <% unless @entity.children_cache.blank? %>
+      <dt><%= t('activerecord.attributes.course_category.children_cache') %></dt>
+      <dd><%= @entity.children_cache %></dd>
+    <% end %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: @entity,
+            url: toggle_admin_course_category_path(@entity.id)
+        }
+    )
+  %>
+
+  <% if @entity.child_categories.any? %>
+    <section>
+      <h2><%= t('.children') %></h2>
+
+      <%= render partial: 'shared/admin/list_with_priority', locals: { collection: CourseCategory.for_tree(@entity.id) } %>
+    </section>
+  <% end %>
+
+  <% if @entity.depth < 2 %>
+    <section>
+      <h2><%= t('.new_child') %></h2>
+
+      <%= render partial: 'course_categories/form', locals: { entity: CourseCategory.new(parent: @entity) } %>
+    </section>
+  <% end %>
+
+  <section>
+    <h2><%= t(:course_count, count: @entity.courses_count) %></h2>
+
+    <%= paginate @collection %>
+    <%= render partial: 'shared/admin/list_with_priority', locals: { collection: @collection } %>
+    <%= paginate @collection %>
+  </section>
+</article>

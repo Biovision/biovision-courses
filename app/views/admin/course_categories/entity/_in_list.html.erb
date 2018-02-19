@@ -1,0 +1,31 @@
+<div class="image">
+  <%= course_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_course_category_link(entity) %></div>
+  <div class="info">
+    <%= entity.long_slug %>,
+    <%= t(:course_count, count: entity.courses_count) %>
+  </div>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: entity,
+            url: toggle_admin_course_category_path(entity.id)
+        }
+    )
+  %>
+
+  <ul class="actions">
+    <li><%= edit_icon edit_course_category_path(entity.id) %></li>
+    <%= render partial: 'shared/actions/priority_changer', locals: { path: priority_admin_course_category_path(entity.id) } %>
+  </ul>
+  
+  <% if entity.child_categories.any? %>
+      <div class="children">
+        <%= render partial: 'shared/admin/list_with_priority', locals: { collection: PostCategory.for_tree(entity.course_type_id, entity.id) } %>
+      </div>
+  <% end %>
+</div>

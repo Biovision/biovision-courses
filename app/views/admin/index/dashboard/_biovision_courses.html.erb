@@ -1,0 +1,12 @@
+<% if current_user_in_group?(:course_managers) %>
+    <nav>
+      <div class="heading" id="biovision-courses-nav-heading">
+        <%= t('.heading') %>
+      </div>
+      <ul aria-labelledby="biovision-courses-nav-heading">
+        <li><%= render 'admin/course_categories/nav_item' %></li>
+        <li><%= render 'admin/course_tags/nav_item' %></li>
+        <li><%= render 'admin/courses/nav_item' %></li>
+      </ul>
+    </nav>
+<% end %>

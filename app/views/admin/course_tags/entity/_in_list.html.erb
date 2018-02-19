@@ -1,0 +1,14 @@
+<div class="image">
+  <%= course_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_course_tag_link(entity) %></div>
+  <div class="secondary info">
+    <%= entity.slug %>,
+    <%= t(:course_count, count: entity.courses_count) %>
+  </div>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_course_tag_path(entity.id)) %></li>
+  </ul>
+</div>

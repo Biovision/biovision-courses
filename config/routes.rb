@@ -11,7 +11,6 @@ Rails.application.routes.draw do
     end
     resources :course_tags, only: [:index, :show] do
       member do
-        post 'priority', defaults: { format: :json }
         post 'toggle', defaults: { format: :json }
       end
     end

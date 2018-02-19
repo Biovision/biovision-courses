@@ -1,6 +1,5 @@
 class CourseTagsController < AdminController
   before_action :set_entity, only: [:edit, :update, :destroy]
-  before_action :restrict_editing, only: [:edit, :update, :destroy]
 
   # get /course_tags/new
   def new
@@ -52,12 +51,6 @@ class CourseTagsController < AdminController
 
   def restrict_access
     require_privilege :chief_course_manager
-  end
-
-  def restrict_editing
-    if @entity.locked?
-      redirect_to admin_course_tag_path(@entity.id), alert: t('course_tags.edit.forbidden')
-    end
   end
 
   def set_entity

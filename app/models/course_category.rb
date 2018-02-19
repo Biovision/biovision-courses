@@ -66,6 +66,10 @@ class CourseCategory < ApplicationRecord
     [id] + children_cache
   end
 
+  def image_alt_text
+    name
+  end
+
   def parents
     return [] if parents_cache.blank?
     CourseCategory.where(id: parent_ids).order('id asc')
