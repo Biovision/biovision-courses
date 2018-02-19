@@ -60,6 +60,16 @@ class Course < ApplicationRecord
     texts + decoration + meta_texts + meta_data
   end
 
+  # @param [User] user
+  def editable_by?(user)
+    owned_by?(user) || UserPrivilege.user_has_privilege?(user, :chief_course_manager)
+  end
+
+  # @param [User] user
+  def lockable_by?(user)
+    UserPrivilege.user_has_privilege?(user, :chief_course_manager)
+  end
+
   # @param [Integer] delta
   def change_priority(delta)
     new_priority = priority + delta

@@ -115,4 +115,48 @@ RSpec.describe Course, type: :model do
       expect(subject.errors.messages).to have_key(:special_price)
     end
   end
+
+  describe '#editable_by?' do
+    before(:each) do
+      subject.user = create :user
+    end
+
+    it 'returns true for owner' do
+      expect(subject).to be_editable_by(subject.user)
+    end
+
+    it 'returns false for nil' do
+      expect(subject).not_to be_editable_by(nil)
+    end
+
+    it 'returns true for chief course manager' do
+      user = create :chief_course_manager
+      expect(subject).to be_editable_by(user)
+    end
+
+    it 'returns false for foreign course manager' do
+      user = create :course_manager
+      expect(subject).not_to be_editable_by(user)
+    end
+
+    it 'returns false for foreign user' do
+      user = create :user
+      expect(subject).not_to be_editable_by(user)
+    end
+  end
+
+  describe '#lockable_by?' do
+    it 'returns true for chief course manager' do
+      user = create :chief_course_manager
+      expect(subject).to be_lockable_by(user)
+    end
+
+    it 'returns false for nil' do
+      expect(subject).not_to be_lockable_by(nil)
+    end
+
+    it 'returns false for users without privilege' do
+      expect(subject).not_to be_lockable_by(subject.user)
+    end
+  end
 end
