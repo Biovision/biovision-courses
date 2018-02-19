@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180218120010) do
+ActiveRecord::Schema.define(version: 20180218120015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -87,6 +87,41 @@ ActiveRecord::Schema.define(version: 20180218120010) do
     t.string "name", null: false
     t.string "slug", null: false
     t.string "image"
+  end
+
+  create_table "courses", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "course_category_id"
+    t.bigint "user_id"
+    t.bigint "agent_id"
+    t.inet "ip"
+    t.integer "priority", limit: 2, default: 1, null: false
+    t.integer "users_count", default: 0, null: false
+    t.boolean "visible", default: true, null: false
+    t.boolean "highlight", default: false, null: false
+    t.boolean "online", default: true, null: false
+    t.boolean "deleted", default: false, null: false
+    t.boolean "locked", default: false, null: false
+    t.integer "price"
+    t.integer "special_price"
+    t.date "special_price_end"
+    t.string "title", null: false
+    t.string "subtitle"
+    t.string "slug", null: false
+    t.string "meta_title"
+    t.string "meta_description"
+    t.string "meta_keywords"
+    t.string "duration"
+    t.string "image"
+    t.string "image_alt_text"
+    t.text "lead"
+    t.text "description"
+    t.string "tags_cache", default: [], null: false, array: true
+    t.json "metadata"
+    t.index ["agent_id"], name: "index_courses_on_agent_id"
+    t.index ["course_category_id"], name: "index_courses_on_course_category_id"
+    t.index ["user_id"], name: "index_courses_on_user_id"
   end
 
   create_table "editable_pages", force: :cascade do |t|
@@ -361,6 +396,9 @@ ActiveRecord::Schema.define(version: 20180218120010) do
   add_foreign_key "codes", "code_types", on_update: :cascade, on_delete: :cascade
   add_foreign_key "codes", "users", on_update: :cascade, on_delete: :cascade
   add_foreign_key "course_categories", "course_categories", column: "parent_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "courses", "agents", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "courses", "course_categories", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "courses", "users", on_update: :cascade, on_delete: :nullify
   add_foreign_key "editable_pages", "languages", on_update: :cascade, on_delete: :cascade
   add_foreign_key "feedback_requests", "agents", on_update: :cascade, on_delete: :nullify
   add_foreign_key "feedback_requests", "languages", on_update: :cascade, on_delete: :nullify

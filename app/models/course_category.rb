@@ -5,7 +5,7 @@ class CourseCategory < ApplicationRecord
   NAME_LIMIT        = 50
   SLUG_LIMIT        = 50
   SLUG_PATTERN      = /\A[a-z][-0-9a-z]*[0-9a-z]\z/i
-  SLUG_PATTERN_HTML = '^[a-z][-0-9a-zA-Z]*[0-9a-zA-Z]$'
+  SLUG_PATTERN_HTML = '^[a-zA-Z][-0-9a-zA-Z]*[0-9a-zA-Z]$'
 
   toggleable :visible
 
