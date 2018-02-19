@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180218120015) do
+ActiveRecord::Schema.define(version: 20180218120020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -77,6 +77,15 @@ ActiveRecord::Schema.define(version: 20180218120015) do
     t.string "image"
     t.string "parents_cache", default: "", null: false
     t.integer "children_cache", default: [], null: false, array: true
+  end
+
+  create_table "course_course_tags", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "course_id"
+    t.bigint "course_tag_id"
+    t.index ["course_id"], name: "index_course_course_tags_on_course_id"
+    t.index ["course_tag_id"], name: "index_course_course_tags_on_course_tag_id"
   end
 
   create_table "course_tags", force: :cascade do |t|
@@ -396,6 +405,8 @@ ActiveRecord::Schema.define(version: 20180218120015) do
   add_foreign_key "codes", "code_types", on_update: :cascade, on_delete: :cascade
   add_foreign_key "codes", "users", on_update: :cascade, on_delete: :cascade
   add_foreign_key "course_categories", "course_categories", column: "parent_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "course_course_tags", "course_tags", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "course_course_tags", "courses", on_update: :cascade, on_delete: :cascade
   add_foreign_key "courses", "agents", on_update: :cascade, on_delete: :nullify
   add_foreign_key "courses", "course_categories", on_update: :cascade, on_delete: :nullify
   add_foreign_key "courses", "users", on_update: :cascade, on_delete: :nullify

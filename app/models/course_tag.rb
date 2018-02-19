@@ -13,6 +13,9 @@ class CourseTag < ApplicationRecord
 
   mount_uploader :image, CourseImageUploader
 
+  has_many :course_course_tags, dependent: :destroy
+  has_many :courses, through: :course_course_tags
+
   before_validation { self.slug = Canonizer.transliterate(name.to_s) if slug.blank? }
   before_validation { self.slug = slug.to_s.downcase }
   validates_length_of :name, maximum: NAME_LIMIT
