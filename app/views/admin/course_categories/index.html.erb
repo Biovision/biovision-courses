@@ -1,6 +1,6 @@
 <% content_for :meta_title, t('.title') %>
 <% content_for :breadcrumbs do %>
-    <span><%= t('admin.course_categories.nav_item.text') %></span>
+  <span><%= t('admin.course_categories.nav_item.text') %></span>
 <% end %>
 
 <article>
@@ -8,6 +8,9 @@
 
   <ul class="actions">
     <li><%= back_icon(admin_path) %></li>
+    <% if current_user_has_privilege?(:chief_course_manager) %>
+      <li><%= create_icon(new_course_category_path) %></li>
+    <% end %>
   </ul>
 
   <%= render partial: 'shared/admin/list_with_priority', locals: { collection: CourseCategory.for_tree } %>

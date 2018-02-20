@@ -12,10 +12,15 @@
 
   <ul class="actions">
     <li><%= return_icon(admin_course_categories_path) %></li>
-    <li><%= edit_icon(edit_course_category_path(@entity.id)) %></li>
+    <% if current_user_has_privilege?(:chief_course_manager) %>
+      <li><%= edit_icon(edit_course_category_path(@entity.id)) %></li>
+    <% end %>
   </ul>
 
   <dl>
+    <dt><%= t('activerecord.attributes.course_category.priority') %></dt>
+    <dd><%= @entity.priority %></dd>
+
     <% unless @entity.image.blank? %>
       <dt><%= t('activerecord.attributes.course_category.image') %></dt>
       <dd>
@@ -33,9 +38,6 @@
     <dt><%= t('activerecord.attributes.course_category.slug') %></dt>
     <dd><%= @entity.slug %> (<%= @entity.long_slug %>)</dd>
 
-    <dt><%= t('activerecord.attributes.course_category.priority') %></dt>
-    <dd><%= @entity.priority %></dd>
-
     <% unless @entity.parents_cache.blank? %>
       <dt><%= t('activerecord.attributes.course_category.parents_cache') %></dt>
       <dd><%= @entity.parents_cache %></dd>
@@ -52,7 +54,7 @@
         partial: 'shared/admin/toggleable',
         locals:  {
             entity: @entity,
-            url: toggle_admin_course_category_path(@entity.id)
+            url:    toggle_admin_course_category_path(@entity.id)
         }
     )
   %>

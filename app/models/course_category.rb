@@ -70,6 +70,10 @@ class CourseCategory < ApplicationRecord
     name
   end
 
+  def title
+    name
+  end
+
   def parents
     return [] if parents_cache.blank?
     CourseCategory.where(id: parent_ids).order('id asc')
@@ -89,7 +93,7 @@ class CourseCategory < ApplicationRecord
   end
 
   def can_be_deleted?
-    !locked? && child_categories.count < 1
+    child_categories.count < 1
   end
 
   # @param [Course] course
