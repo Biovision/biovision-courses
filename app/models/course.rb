@@ -50,6 +50,17 @@ class Course < ApplicationRecord
   scope :visible, -> { where(visible: true, deleted: false) }
   scope :for_tree, ->(course_category_id = nil) { siblings(course_category_id).ordered_by_priority }
   scope :siblings, ->(course_category_id) { where(course_category_id: course_category_id) }
+  scope :list_for_visitors, -> { visible.ordered_by_priority }
+
+  # @param [Integer] page
+  def self.page_for_administration(page = 1)
+    ordered_by_priority.page(page).per(PER_PAGE)
+  end
+
+  # @param [Integer] page
+  def self.page_for_visitors(page = 1)
+    list_for_visitors.page(page).per(PER_PAGE)
+  end
 
   def self.entity_parameters
     texts      = %i(title subtitle slug lead description duration)

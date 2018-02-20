@@ -42,4 +42,8 @@ class CourseTag < ApplicationRecord
   def image_alt_text
     name
   end
+
+  def title
+    name
+  end
 end

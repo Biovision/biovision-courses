@@ -5,6 +5,7 @@ class Admin::CourseTagsController < AdminController
 
   # get /admin/course_tags
   def index
+    @collection = CourseTag.page_for_administration(current_page)
   end
 
   # get /admin/course_tags/:id
