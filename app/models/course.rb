@@ -18,7 +18,7 @@ class Course < ApplicationRecord
 
   mount_uploader :image, CourseImageUploader
 
-  belongs_to :course_category, optional: true, counter_cache: true
+  belongs_to :course_category, counter_cache: true
   belongs_to :user, optional: true
   belongs_to :agent, optional: true
   has_many :course_course_tags, dependent: :destroy

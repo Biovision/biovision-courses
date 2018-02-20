@@ -30,6 +30,12 @@ RSpec.describe Course, type: :model do
   end
 
   describe 'validation' do
+    it 'fails without course category' do
+      subject.course_category = nil
+      expect(subject).not_to be_valid
+      expect(subject.errors.messages).to have_key(:course_category)
+    end
+
     it 'fails without title' do
       subject.title = ' '
       expect(subject).not_to be_valid

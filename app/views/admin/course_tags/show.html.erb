@@ -1,33 +1,33 @@
 <% content_for :meta_title, t('.title', name: @entity.name) %>
 <% content_for :breadcrumbs do %>
-    <%= link_to(t('admin.post_types.nav_item.text'), admin_post_types_path) %>
-    <span><%= @entity.name %></span>
+  <%= link_to(t('admin.course_tags.nav_item.text'), admin_course_tags_path) %>
+  <span><%= @entity.name %></span>
 <% end %>
 
 <article>
   <h1><%= @entity.name %></h1>
 
   <ul class="actions">
-    <li><%= back_icon(admin_post_types_path) %></li>
-    <li><%= create_icon(new_post_admin_post_type_path(@entity.id)) %></li>
+    <li><%= back_icon(admin_course_tags_path) %></li>
+    <li><%= create_icon(new_course_tag_path(@entity.id)) %></li>
   </ul>
 
-  <% if current_user_has_privilege?(:chief_editor) %>
-      <nav>
-        <%= link_to(t('admin.post_types.post_categories.heading'), post_categories_admin_post_type_path(@entity.id)) %>
-      </nav>
-  <% end %>
-
   <dl>
-    <dt><%= t('activerecord.attributes.post_type.slug') %></dt>
-    <dd><%= @entity.slug %></dd>
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.course_tag.image') %></dt>
+      <dd>
+        <figure>
+          <%= link_to(course_image_medium(@entity), @entity.image.url) %>
+        </figure>
+      </dd>
+    <% end %>
 
-    <dt><%= t('activerecord.attributes.post_type.category_depth') %></dt>
-    <dd><%= @entity.category_depth %></dd>
+    <dt><%= t('activerecord.attributes.course_tag.slug') %></dt>
+    <dd><%= @entity.slug %></dd>
   </dl>
 
   <section>
-    <h2><%= t(:post_count, count: @entity.posts_count) %></h2>
+    <h2><%= t(:course_count, count: @entity.courses_count) %></h2>
 
     <%= paginate @collection %>
     <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
