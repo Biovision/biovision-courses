@@ -47,6 +47,8 @@
               id: :course_tag_slug,
               size: nil,
               maxlength: CourseTag::SLUG_LIMIT,
+              pattern: CourseTag::SLUG_PATTERN_HTML,
+              title: t('.guidelines.slug'),
               required: true
           )
         %>

@@ -1,0 +1,244 @@
+<%= form_with model: entity, html: { id: 'course-form' } do |f| %>
+    <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+    <dl>
+      <dt><%= f.label :priority %></dt>
+      <dd>
+        <%=
+          f.number_field(
+              :priority,
+              id: :course_priority,
+              in: Course::PRIORITY_RANGE,
+              required: true
+          )
+        %>
+      </dd>
+
+      <dt><%= f.label :course_category_id %></dt>
+      <dd>
+        <%=
+          f.select(
+              :course_category_id,
+              course_categories_for_select,
+              id: :course_course_category_id,
+              required: true
+          )
+        %>
+      </dd>
+
+      <dt><%= f.label :title %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :title,
+              id: :course_title,
+              size: nil,
+              maxlength: Course::TITLE_LIMIT,
+              required: true,
+              data: { transliterate: 'course_slug' }
+          )
+        %>
+        <div class="guideline"><%= t('.guidelines.title') %></div>
+      </dd>
+
+      <dt><%= f.label :subtitle %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :subtitle,
+              id: :course_subtitle,
+              size: nil,
+              maxlength: Course::TITLE_LIMIT
+          )
+        %>
+        <div class="guideline"><%= t('.guidelines.subtitle') %></div>
+      </dd>
+
+      <dt><%= f.label :slug %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :slug,
+              id: :course_slug,
+              size: nil,
+              maxlength: Course::SLUG_LIMIT,
+              pattern: Course::SLUG_PATTERN_HTML,
+              title: t('.guidelines.slug'),
+              required: true
+          )
+        %>
+        <div class="guideline"><%= t('.guidelines.slug') %></div>
+      </dd>
+
+      <dt><%= f.label :duration %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :duration,
+              id: :course_duration,
+              size: nil,
+              maxlength: Course::DURATION_LIMIT
+          )
+        %>
+        <div class="guideline"><%= t('.guidelines.duration') %></div>
+      </dd>
+
+      <dt><%= f.label :price %></dt>
+      <dd>
+        <%=
+          f.number_field(
+              :price,
+              id: :course_price,
+              in: (0..100000000)
+          )
+        %>
+      </dd>
+
+      <dt><%= f.label :special_price %></dt>
+      <dd>
+        <%=
+          f.number_field(
+              :special_price,
+              id: :course_special_price,
+              in: (0..100000000)
+          )
+        %>
+      </dd>
+
+      <dt><%= f.label :special_price_end %></dt>
+      <dd>
+        <%=
+          f.date_field(
+              :special_price_end,
+              id: :course_special_price_end,
+          )
+        %>
+      </dd>
+
+      <dt><%= f.label :image %></dt>
+      <dd>
+        <figure role="group" class="preview" id="course-image">
+          <% if entity.image.blank? %>
+            <%= f.label :image, image_tag('biovision/base/placeholders/image.svg') %>
+          <% else %>
+            <%= f.label :image, image_tag(entity.image.big.url) %>
+          <% end %>
+          <figcaption>
+            <%=
+              f.file_field(
+                  :image,
+                  id: :course_image,
+                  accept: 'image/jpeg,image/png',
+                  data: { image: 'course-image' }
+              )
+            %>
+          </figcaption>
+        </figure>
+        <div class="guideline"><%= t('.guidelines.image') %></div>
+      </dd>
+
+      <dt><%= f.label :image_alt_text %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :image_alt_text,
+              id: :course_image_alt_text,
+              size: nil,
+              maxlength: Course::META_LIMIT
+          )
+        %>
+        <div class="guideline"><%= t('.guidelines.image_alt_text') %></div>
+      </dd>
+
+      <dt><%= f.label :lead %></dt>
+      <dd>
+        <%= 
+          f.text_area(
+              :lead,
+              id: :course_lead,
+              cols: 80,
+              rows: 3,
+              maxlength: Course::LEAD_LIMIT
+          )
+        %>
+        <div class="guideline"><%= t('.guidelines.lead') %></div>
+      </dd>
+
+      <dt><%= f.label :description %></dt>
+      <dd>
+        <%=
+          f.text_area(
+              :description,
+              id: :course_description,
+              cols: 20,
+              rows: 25,
+              required: true
+          )
+        %>
+      </dd>
+
+
+      <dt><%= f.label :meta_title %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :meta_title,
+              id: :course_meta_title,
+              size: nil,
+              maxlength: Course::META_LIMIT
+          )
+        %>
+        <div class="guideline"><%= t('.guidelines.meta_title') %></div>
+      </dd>
+
+      <dt><%= f.label :meta_description %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :meta_description,
+              id: :course_meta_description,
+              size: nil,
+              maxlength: Course::META_LIMIT
+          )
+        %>
+        <div class="guideline"><%= t('.guidelines.meta_description') %></div>
+      </dd>
+
+      <dt><%= f.label :meta_keywords %></dt>
+      <dd>
+        <%=
+          f.text_field(
+              :meta_keywords,
+              id: :course_meta_keywords,
+              size: nil,
+              maxlength: Course::META_LIMIT
+          )
+        %>
+        <div class="guideline"><%= t('.guidelines.meta_keywords') %></div>
+      </dd>
+
+      <dt><%= t(:flags) %></dt>
+      <dd>
+        <ul class="flags">
+          <li>
+            <%= f.check_box :visible, id: :course_visible %>
+            <%= f.label :visible %>
+          </li>
+          <li>
+            <%= f.check_box :highlight, id: :course_highlight %>
+            <%= f.label :highlight %>
+          </li>
+          <li>
+            <%= f.check_box :online, id: :course_online %>
+            <%= f.label :online %>
+          </li>
+        </ul>
+      </dd>
+    </dl>
+
+    <div class="buttons">
+      <%= f.button t(:save), type: :submit, class: 'button-save' %>
+    </div>
+<% end %>
+
+<%= render 'courses/form/wysiwyg' %>

@@ -45,7 +45,7 @@ class CoursesController < ApplicationController
   # patch /courses/:id
   def update
     if @entity.update(entity_parameters)
-      next_page = CourseManager.handler(@entity).course_path
+      next_page = admin_course_path(@entity.id)
       respond_to do |format|
         format.html { redirect_to next_page }
         format.json { render json: { links: { self: next_page } } }
@@ -74,7 +74,7 @@ class CoursesController < ApplicationController
   end
 
   def restrict_access
-    require_privilege_group :editors
+    require_privilege_group :course_managers
   end
 
   def restrict_editing

@@ -18,7 +18,7 @@ module BiovisionCoursesHelper
   end
 
   def course_categories_for_select
-    options = [[t(:not_set), '']]
+    options = []
     CourseCategory.for_tree.each do |category|
       options << [category.name, category.id]
       if category.child_categories.any?

@@ -1,0 +1,117 @@
+<% content_for :meta_title, t('.title', name: @entity.title) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.courses.nav_item.text'), admin_courses_path) %>
+  <span><%= @entity.title %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.title %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_courses_path) %></li>
+    <% if @entity.editable_by?(current_user) && !@entity.locked? %>
+      <li><%= edit_icon(edit_course_path(@entity.id)) %></li>
+    <% end %>
+  </ul>
+
+  <dl>
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.course.image') %></dt>
+      <dd>
+        <figure>
+          <%= link_to(course_image_medium(@entity), @entity.image.url) %>
+          <% unless @entity.image_alt_text.blank? %>
+            <figcaption><%= @entity.image_alt_text %></figcaption>
+          <% end %>
+        </figure>
+      </dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.course.title') %></dt>
+    <dd><%= @entity.title %></dd>
+
+    <% unless @entity.subtitle.blank? %>
+      <dt><%= t('activerecord.attributes.course.subtitle') %></dt>
+      <dd><%= @entity.subtitle %></dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.course.slug') %></dt>
+    <dd><%= @entity.slug %></dd>
+
+    <dt><%= t('activerecord.attributes.course.course_category') %></dt>
+    <dd><%= admin_course_category_link(@entity.course_category) %></dd>
+
+    <dt><%= t('activerecord.attributes.course.priority') %></dt>
+    <dd><%= @entity.priority %></dd>
+
+    <% unless @entity.duration.blank? %>
+      <dt><%= t('activerecord.attributes.course.duration') %></dt>
+      <dd><%= @entity.duration %></dd>
+    <% end %>
+
+    <% unless @entity.price.blank? %>
+      <dt><%= t('activerecord.attributes.course.price') %></dt>
+      <dd><%= @entity.price %></dd>
+    <% end %>
+
+    <% unless @entity.special_price.blank? %>
+      <dt><%= t('activerecord.attributes.course.special_price') %></dt>
+      <dd><%= @entity.special_price %></dd>
+
+      <% unless @entity.special_price_end.blank? %>
+        <dt><%= t('activerecord.attributes.course.special_price_end') %></dt>
+        <dd><%= time_tag(@entity.special_price_end) %></dd>
+      <% end %>
+    <% end %>
+
+    <% unless @entity.lead.blank? %>
+      <dt><%= t('activerecord.attributes.course.lead') %></dt>
+      <dd>
+        <div>
+          <%= simple_format(@entity.lead) %>
+        </div>
+      </dd>
+    <% end %>
+
+    <% unless @entity.description.blank? %>
+      <dt><%= t('activerecord.attributes.course.description') %></dt>
+      <dd>
+        <div>
+          <%= raw(@entity.description) %>
+        </div>
+      </dd>
+    <% end %>
+
+    <% unless @entity.meta_title.blank? %>
+      <dt><%= t('activerecord.attributes.course.meta_title') %></dt>
+      <dd><%= @entity.meta_title %></dd>
+    <% end %>
+
+    <% unless @entity.meta_description.blank? %>
+      <dt><%= t('activerecord.attributes.course.meta_description') %></dt>
+      <dd><%= @entity.meta_description %></dd>
+    <% end %>
+
+    <% unless @entity.meta_keywords.blank? %>
+      <dt><%= t('activerecord.attributes.course.meta_keywords') %></dt>
+      <dd><%= @entity.meta_keywords %></dd>
+    <% end %>
+
+    <% unless @entity.tags_cache.blank? %>
+      <dt><%= t('activerecord.attributes.course.tags_cache') %></dt>
+      <dd><%= @entity.tags_cache.join(', ') %></dd>
+    <% end %>
+  </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: @entity,
+            url:    toggle_admin_course_path(@entity.id)
+        }
+    )
+  %>
+
+  <%= render partial: 'shared/track', locals: { item: @entity } %>
+</article>

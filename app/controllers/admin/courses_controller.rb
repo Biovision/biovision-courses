@@ -7,6 +7,7 @@ class Admin::CoursesController < AdminController
 
   # get /admin/courses
   def index
+    @collection = Course.page_for_administration(current_page)
   end
 
   # get /admin/courses/:id
