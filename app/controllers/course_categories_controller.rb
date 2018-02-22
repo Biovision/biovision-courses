@@ -1,5 +1,13 @@
-class CourseCategoriesController < AdminController
+class CourseCategoriesController < ApplicationController
+  before_action :restrict_access, except: [:index, :show]
   before_action :set_entity, only: [:edit, :update, :destroy]
+  before_action :set_entity_for_visitor, only: [:show]
+
+  layout 'admin', except: [:index, :show]
+
+  # get /course_categories
+  def index
+  end
 
   # get /course_categories/new
   def new
@@ -19,6 +27,11 @@ class CourseCategoriesController < AdminController
     else
       render :new, status: :bad_request
     end
+  end
+
+  # get /course_categories/:id
+  def show
+    @collection = @entity.courses.page_for_visitors(current_page)
   end
 
   # get /course_categories/:id/edit
@@ -57,6 +70,13 @@ class CourseCategoriesController < AdminController
     @entity = CourseCategory.find_by(id: params[:id])
     if @entity.nil?
       handle_http_404('Cannot find course_category')
+    end
+  end
+
+  def set_entity_for_visitor
+    @entity = CourseCategory.visible.find_by(id: params[:id])
+    if @entity.nil?
+      handle_http_404('Cannot find visible course_category')
     end
   end
 

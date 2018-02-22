@@ -136,3 +136,13 @@ ru:
     new:
       title: "Добавление курса"
       heading: "Новый курс"
+    index:
+      title: "Все курсы, страница %{page}"
+      heading: "Все курсы"
+  index:
+    index:
+      biovision_courses:
+        categories:
+          heading: "Категории курсов"
+        tags:
+          heading: "Метки курсов"

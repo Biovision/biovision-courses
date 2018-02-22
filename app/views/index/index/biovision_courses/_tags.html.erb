@@ -1,0 +1,12 @@
+<% collection = CourseTag.list_for_visitors %>
+<% if collection.any? %>
+  <section class="index-course-tags">
+    <h2><%= t('.heading') %></h2>
+
+    <ul>
+      <% collection.each do |entity| %>
+        <li><%= course_tag_link(entity) %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

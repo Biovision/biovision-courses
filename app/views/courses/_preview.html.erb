@@ -1,0 +1,10 @@
+<div class="course-preview">
+  <div class="image"><%= course_image_small(entity) %></div>
+  <div class="info">
+    <div class="title"><%= course_link(entity) %></div>
+    <div class="lead"><%= simple_format(entity.lead) %></div>
+    <div class="footer">
+      <div class="duration"><%= entity.duration %></div>
+    </div>
+  </div>
+</div>

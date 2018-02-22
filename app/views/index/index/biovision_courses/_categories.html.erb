@@ -1,0 +1,15 @@
+<% collection = CourseCategory.visible.for_tree %>
+<% if collection.any? %>
+  <section class="index-course-categories">
+    <h2><%= t('.heading') %></h2>
+
+    <ul>
+      <% collection.each do |entity| %>
+        <li>
+          <div class="image"><%= course_image_small(entity) %></div>
+          <%= course_category_link(entity) %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

@@ -1,6 +1,5 @@
 Rails.application.routes.draw do
-  resources :courses
-  resources :course_categories, :course_tags, except: [:index, :show]
+  resources :courses, :course_categories, :course_tags
 
   namespace :admin do
     resources :course_categories, only: [:index, :show] do
