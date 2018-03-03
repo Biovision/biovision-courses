@@ -1,0 +1,14 @@
+<div class="image">
+  <%= teacher_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_teacher_link(entity) %></div>
+  <div class="secondary info">
+    <%= entity.title %>,
+    <%= t(:course_count, count: entity.courses_count) %>
+  </div>
+
+  <ul class="actions">
+    <li><%= edit_icon(edit_teacher_path(entity.id)) %></li>
+  </ul>
+</div>

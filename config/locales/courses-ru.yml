@@ -9,6 +9,10 @@ ru:
     models:
       course: "Курс"
       course_category: "Категория курса"
+      course_lesson: "Урок курса"
+      course_skill: "Навык курса"
+      course_tag: "Метка курса"
+      teacher: "Преподаватель"
     attributes:
       course:
         course_category: "Категория"
@@ -44,11 +48,30 @@ ru:
         priority: "Порядок сортировки"
         slug: "Идентификатор"
         visible: "Показывать"
+      course_lesson:
+        course: "Курс"
+        duration: "Длительность"
+        image: "Картинка"
+        name: "Название"
+        priority: "Порядок сортировки"
+        uuid: "UUID"
+        video_url: "Ссылка на видеофайл"
+        video_file: "Файл с видео"
       course_tag:
         image: "Картинка"
         name: "Название"
         slug: "Идентификатор"
         visible: "Показывать"
+      course_skill:
+        course: "Курс"
+        body: "Текст"
+        priority: "Порядок сортировки"
+      teacher:
+        description: "Описание"
+        image: "Картинка"
+        name: "Имя"
+        surname: "Фамилия"
+        title: "Титул/звание"
   admin:
     course_categories:
       nav_item:
@@ -79,6 +102,15 @@ ru:
         title: "Курсы, страница %{page}"
       show:
         title: "Курс «%{name}»"
+    teachers:
+      nav_item:
+        description: "Управление преподавателями"
+        text: "Преподаватели"
+      index:
+        heading: "Преподаватели"
+        title: "Преподаватели, страница %{page}"
+      show:
+        title: "Преподаватель %{name}"
     index:
       dashboard:
         biovision_courses:
@@ -120,7 +152,7 @@ ru:
       title: "Редактирование курса"
       heading: "Редактирование курса"
     destroy:
-      success: "Курс успешно удалена"
+      success: "Курс успешно удалён"
     form:
       guidelines:
         duration: "Максимум 50 символов"
@@ -139,6 +171,21 @@ ru:
     index:
       title: "Все курсы, страница %{page}"
       heading: "Все курсы"
+  teachers:
+    edit:
+      title: "Редактирование преподавателя"
+      heading: "Редактирование преподавателя"
+    destroy:
+      success: "Преподаватель успешно удалён"
+    form:
+      guidelines:
+        image: "Максимальный размер — 3000×3000, формат — JPG."
+        description: "Краткая биография, максимум 1000 символов."
+        name: "Максимум 50 символов"
+        title: "Максимум 250 символов."
+    new:
+      title: "Добавление преподавателф"
+      heading: "Новый преподаватель"
   index:
     index:
       biovision_courses:

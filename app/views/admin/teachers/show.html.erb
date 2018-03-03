@@ -1,0 +1,32 @@
+<% content_for :meta_title, t('.title', name: @entity.full_name) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.teachers.nav_item.text'), admin_teachers_path) %>
+  <span><%= @entity.full_name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.full_name %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_teachers_path) %></li>
+    <li><%= create_icon(new_teacher_path(@entity.id)) %></li>
+    <li><%= edit_icon(edit_teacher_path(@entity.id)) %></li>
+  </ul>
+
+  <dl>
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.teacher.image') %></dt>
+      <dd>
+        <figure>
+          <%= link_to(teacher_image_small(@entity), @entity.image.url) %>
+        </figure>
+      </dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.teacher.title') %></dt>
+    <dd><%= @entity.title %></dd>
+
+    <dt><%= t('activerecord.attributes.teacher.description') %></dt>
+    <dd><%= @entity.description %></dd>
+  </dl>
+</article>

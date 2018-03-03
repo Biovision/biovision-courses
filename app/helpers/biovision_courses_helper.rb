@@ -1,4 +1,16 @@
 module BiovisionCoursesHelper
+  # @param [Teacher] entity
+  # @param [String] text
+  def admin_teacher_link(entity, text = entity.full_name)
+    link_to(text, admin_teacher_path(entity.id))
+  end
+
+  # @param [CourseLesson] entity
+  # @param [String] text
+  def admin_course_lesson_link(entity, text = entity.name)
+    link_to(text, admin_course_lesson_path(entity.id))
+  end
+
   # @param [CourseTag] entity
   # @param [String] text
   def admin_course_tag_link(entity, text = entity.name)
@@ -90,5 +102,24 @@ module BiovisionCoursesHelper
     versions = "#{entity.image.big.url} 2x"
     options  = { alt: alt_text, srcset: versions }.merge(add_options)
     image_tag(entity.image.medium.url, options)
+  end
+
+  # @param [Teacher] entity
+  def teacher_image_preview(entity)
+    return '' if entity.image.blank?
+
+    versions = "#{entity.image.small.url} 2x"
+    image_tag(entity.image.preview.url, alt: entity.full_name, srcset: versions)
+  end
+
+  # @param [Teacher] entity
+  # @param [Hash] add_options
+  def teacher_image_small(entity, add_options = {})
+    return '' if entity.image.blank?
+
+    alt_text = entity.full_name
+    versions = "#{entity.image.medium.url} 2x"
+    options  = { alt: alt_text, srcset: versions }.merge(add_options)
+    image_tag(entity.image.small.url, options)
   end
 end
