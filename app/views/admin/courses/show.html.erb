@@ -114,4 +114,16 @@
   %>
 
   <%= render partial: 'shared/track', locals: { item: @entity } %>
+
+  <section>
+    <h2><%= t('.skills') %></h2>
+
+    <%= render partial: 'shared/admin/list_with_priority', locals: { collection: @entity.course_skills.page_for_adminsitration } %>
+  </section>
+
+  <section>
+    <h2><%= t('course_skills.new.heading') %></h2>
+
+    <%= render partial: 'course_skills/form', locals: { entity: @entity.course_skills.new } %>
+  </section>
 </article>

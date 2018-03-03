@@ -1,0 +1,41 @@
+<%= form_with model: entity, html: { id: 'course_skill-form' } do |f| %>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+
+  <dl>
+    <% unless entity.id.nil? %>
+      <dt><%= t('activerecord.attributes.course_skill.course') %></dt>
+      <dd><%= admin_course_link(entity.course) %></dd>
+    <% end %>
+
+    <dt><%= f.label :priority %></dt>
+    <dd>
+      <%=
+        f.number_field(
+            :priority,
+            id:       :course_skill_priority,
+            in:       CourseSkill::PRIORITY_RANGE,
+            required: true
+        )
+      %>
+    </dd>
+
+    <dt><%= f.label :body %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :body,
+            id:        :course_skill_body,
+            size:      nil,
+            maxlength: CourseSkill::BODY_LIMIT,
+            required:  true
+        )
+      %>
+      <div class="guideline"><%= t('.guidelines.body') %></div>
+    </dd>
+  </dl>
+
+  <div class="buttons">
+    <%= f.hidden_field :course_id if entity.id.nil? %>
+    <%= f.button t(:save), type: :submit, class: 'button-save' %>
+  </div>
+<% end %>

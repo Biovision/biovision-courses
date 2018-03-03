@@ -27,6 +27,11 @@ Rails.application.routes.draw do
       end
     end
     resources :course_lessons, only: [:show]
+    resources :course_skills, only: [:show] do
+      member do
+        post 'priority', defaults: { format: :json }
+      end
+    end
 
     resources :teachers, only: [:index, :show]
   end
