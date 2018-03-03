@@ -23,6 +23,8 @@ class Course < ApplicationRecord
   belongs_to :agent, optional: true
   has_many :course_course_tags, dependent: :destroy
   has_many :course_tags, through: :course_course_tags
+  has_many :course_skills, dependent: :delete_all
+  has_many :course_lessons, dependent: :destroy
 
   after_initialize :set_next_priority
   before_validation { self.slug = Canonizer.transliterate(title.to_s) if slug.blank? }

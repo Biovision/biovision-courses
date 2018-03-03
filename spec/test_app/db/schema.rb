@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180218120020) do
+ActiveRecord::Schema.define(version: 20180302000015) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -88,6 +88,30 @@ ActiveRecord::Schema.define(version: 20180218120020) do
     t.index ["course_tag_id"], name: "index_course_course_tags_on_course_tag_id"
   end
 
+  create_table "course_lessons", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "course_id"
+    t.integer "priority", limit: 2, default: 1, null: false
+    t.string "uuid", null: false
+    t.string "name", null: false
+    t.string "duration"
+    t.string "video_url"
+    t.string "video_file"
+    t.string "image"
+    t.text "body"
+    t.index ["course_id"], name: "index_course_lessons_on_course_id"
+  end
+
+  create_table "course_skills", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "course_id"
+    t.integer "priority", limit: 2, default: 1, null: false
+    t.string "body", null: false
+    t.index ["course_id"], name: "index_course_skills_on_course_id"
+  end
+
   create_table "course_tags", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -96,6 +120,15 @@ ActiveRecord::Schema.define(version: 20180218120020) do
     t.string "name", null: false
     t.string "slug", null: false
     t.string "image"
+  end
+
+  create_table "course_teachers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "course_id"
+    t.bigint "teacher_id"
+    t.index ["course_id"], name: "index_course_teachers_on_course_id"
+    t.index ["teacher_id"], name: "index_course_teachers_on_teacher_id"
   end
 
   create_table "courses", force: :cascade do |t|
@@ -313,6 +346,17 @@ ActiveRecord::Schema.define(version: 20180218120020) do
     t.string "description"
   end
 
+  create_table "teachers", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "courses_count", default: 0, null: false
+    t.string "name", null: false
+    t.string "surname", null: false
+    t.string "image"
+    t.string "title"
+    t.text "description"
+  end
+
   create_table "tokens", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -407,6 +451,10 @@ ActiveRecord::Schema.define(version: 20180218120020) do
   add_foreign_key "course_categories", "course_categories", column: "parent_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "course_course_tags", "course_tags", on_update: :cascade, on_delete: :cascade
   add_foreign_key "course_course_tags", "courses", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "course_lessons", "courses", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "course_skills", "courses", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "course_teachers", "courses", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "course_teachers", "teachers", on_update: :cascade, on_delete: :cascade
   add_foreign_key "courses", "agents", on_update: :cascade, on_delete: :nullify
   add_foreign_key "courses", "course_categories", on_update: :cascade, on_delete: :nullify
   add_foreign_key "courses", "users", on_update: :cascade, on_delete: :nullify
