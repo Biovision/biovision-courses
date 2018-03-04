@@ -9,7 +9,6 @@ class LessonVideoUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id/10000.floor}/#{model.id/100.floor}/#{model.id}"
   end
 
-
   # Add a white list of extensions which are allowed to be uploaded.
   # For images you might use something like this:
   def extension_whitelist
@@ -19,6 +18,6 @@ class LessonVideoUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   def filename
-    "#{mode.uuid}.mp4" if original_filename
+    "#{model.uuid}.mp4" if original_filename
   end
 end

@@ -1,0 +1,22 @@
+<div class="image">
+  <%= course_image_preview(entity) %>
+</div>
+<div class="data">
+  <div><%= admin_course_lesson_link(entity) %></div>
+  <div class="secondary info">
+    <%= entity.duration %><br/>
+    <% unless entity.video_file.blank? %>
+      <%= link_to(t('activerecord.attributes.course_lesson.video_file'), entity.video_file.url) %>
+      <br/>
+    <% end %>
+    <% unless entity.video_url.blank? %>
+      <%= link_to(t('activerecord.attributes.course_lesson.video_url'), entity.video_url) %>
+    <% end %>
+  </div>
+
+  <% unless entity.course.locked? %>
+    <ul class="actions">
+      <li><%= edit_icon(edit_course_lesson_path(entity.id)) %></li>
+    </ul>
+  <% end %>
+</div>

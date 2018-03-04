@@ -14,7 +14,7 @@ class CourseSkill < ApplicationRecord
   scope :visible, -> { where(visible: true) }
   scope :siblings, ->(course_id) { where(course_id: course_id) }
 
-  def self.page_for_adminsitration
+  def self.page_for_administration
     ordered_by_priority
   end
 
@@ -24,6 +24,10 @@ class CourseSkill < ApplicationRecord
 
   def self.creation_parameters
     entity_parameters + %i(course_id)
+  end
+
+  def locked?
+    course.locked?
   end
 
   # @param [Integer] delta

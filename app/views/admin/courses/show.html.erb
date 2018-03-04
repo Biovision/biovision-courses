@@ -14,6 +14,16 @@
     <% end %>
   </ul>
 
+  <nav>
+    <%=
+      link_to(
+          t('admin.course_lessons.nav_item.text'),
+          lessons_admin_course_path(@entity.id),
+          class: 'button-nav'
+      )
+    %>
+  </nav>
+
   <dl>
     <% unless @entity.image.blank? %>
       <dt><%= t('activerecord.attributes.course.image') %></dt>
@@ -118,12 +128,24 @@
   <section>
     <h2><%= t('.skills') %></h2>
 
-    <%= render partial: 'shared/admin/list_with_priority', locals: { collection: @entity.course_skills.page_for_adminsitration } %>
+    <%=
+      render(
+          partial: 'shared/admin/list_with_priority',
+          locals:  { collection: @entity.course_skills.page_for_administration }
+      )
+    %>
   </section>
 
-  <section>
-    <h2><%= t('course_skills.new.heading') %></h2>
+  <% unless @entity.locked? %>
+    <section>
+      <h2><%= t('course_skills.new.heading') %></h2>
 
-    <%= render partial: 'course_skills/form', locals: { entity: @entity.course_skills.new } %>
-  </section>
+      <%=
+        render(
+            partial: 'course_skills/form',
+            locals:  { entity: @entity.course_skills.new }
+        )
+      %>
+    </section>
+  <% end %>
 </article>

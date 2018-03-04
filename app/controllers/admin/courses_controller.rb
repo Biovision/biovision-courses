@@ -14,6 +14,11 @@ class Admin::CoursesController < AdminController
   def show
   end
 
+  # get /admin/courses/:id/lessons
+  def lessons
+    @collection = @entity.course_lessons.ordered_by_priority
+  end
+
   private
 
   def set_entity

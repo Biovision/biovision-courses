@@ -1,0 +1,24 @@
+<% content_for :meta_title, t('.title', course: @entity.title) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.courses.nav_item.text'), admin_courses_path) %>
+  <%= admin_course_link(@entity) %>
+  <span><%= t('admin.course_lessons.nav_item.text') %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.title %></h1>
+
+  <section>
+    <h2><%= t('.heading') %></h2>
+
+    <%= render partial: 'shared/admin/list_with_priority', locals: { collection: @collection } %>
+  </section>
+
+  <% unless @entity.locked? %>
+    <section>
+      <h2><%= t('course_lessons.new.heading') %></h2>
+
+      <%= render partial: 'course_lessons/form', locals: { entity: @entity.course_lessons.new } %>
+    </section>
+  <% end %>
+</article>

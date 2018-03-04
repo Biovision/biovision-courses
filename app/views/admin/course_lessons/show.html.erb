@@ -1,0 +1,62 @@
+<% content_for :meta_title, t('.title', course: @entity.course.title, lesson: @entity.name) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.courses.nav_item.text'), admin_courses_path) %>
+  <%= admin_course_link(@entity.course) %>
+  <%= link_to(t('admin.course_lessons.nav_item.text'), lessons_admin_course_path(@entity.course_id)) %>
+  <span><%= @entity.name %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.name %></h1>
+
+  <ul class="actions">
+    <li><%= back_icon(admin_course_path(@entity.id)) %></li>
+    <li><%= return_icon(lessons_admin_course_path(@entity.id)) %></li>
+    <% unless @entity.course.locked? %>
+      <li><%= edit_icon(edit_course_lesson_path(@entity.id)) %></li>
+    <% end %>
+  </ul>
+
+  <dl>
+    <dt><%= t('activerecord.attributes.course_lesson.course') %></dt>
+    <dd><%= admin_course_link(@entity.course) %></dd>
+
+    <dt><%= t('activerecord.attributes.course_lesson.priority') %></dt>
+    <dd><%= @entity.priority %></dd>
+
+    <% unless @entity.duration.blank? %>
+      <dt><%= t('activerecord.attributes.course_lesson.duration') %></dt>
+      <dd><%= @entity.duration %></dd>
+    <% end %>
+
+    <% unless @entity.image.blank? %>
+      <dt><%= t('activerecord.attributes.course_lesson.image') %></dt>
+      <dd>
+        <figure>
+          <%= link_to(course_image_medium(@entity), @entity.image.url) %>
+        </figure>
+      </dd>
+    <% end %>
+
+    <% unless @entity.video_file.blank? %>
+      <dt><%= t('activerecord.attributes.course_lesson.video_file') %></dt>
+      <dd>
+        <figure class="course-video">
+          <%= video_tag(@entity.video_file.url, { controls: true }) %>
+        </figure>
+      </dd>
+    <% end %>
+
+    <% unless @entity.video_url.blank? %>
+      <dt><%= t('activerecord.attributes.course_lesson.video_url') %></dt>
+      <dd><%= link_to(@entity.video_url, @entity.video_url) %></dd>
+    <% end %>
+
+    <dt><%= t('activerecord.attributes.course_lesson.body') %></dt>
+    <dd>
+      <div>
+        <%= raw(@entity.body) %>
+      </div>
+    </dd>
+  </dl>
+</article>

@@ -49,23 +49,24 @@ ru:
         slug: "Идентификатор"
         visible: "Показывать"
       course_lesson:
+        body: "Текст"
         course: "Курс"
         duration: "Длительность"
         image: "Картинка"
         name: "Название"
         priority: "Порядок сортировки"
         uuid: "UUID"
-        video_url: "Ссылка на видеофайл"
+        video_url: "Ссылка на видео"
         video_file: "Файл с видео"
+      course_skill:
+        course: "Курс"
+        body: "Текст"
+        priority: "Порядок сортировки"
       course_tag:
         image: "Картинка"
         name: "Название"
         slug: "Идентификатор"
         visible: "Показывать"
-      course_skill:
-        course: "Курс"
-        body: "Текст"
-        priority: "Порядок сортировки"
       teacher:
         description: "Описание"
         image: "Картинка"
@@ -84,6 +85,11 @@ ru:
         title: "Категория курсов «%{name}»"
         children: "Дочерние категории"
         new_child: "Добавить дочернюю категорию"
+    course_lessons:
+      nav_item:
+        text: "Уроки"
+      show:
+        title: "Курс «%{course}», урок «%{lesson}»"
     course_tags:
       nav_item:
         description: "Управление метками курсов"
@@ -103,6 +109,9 @@ ru:
       show:
         title: "Курс «%{name}»"
         skills: "Чему научится слушатель"
+      lessons:
+        title: "Уроки курса «%{course}»"
+        heading: "Уроки"
     teachers:
       nav_item:
         description: "Управление преподавателями"
@@ -132,6 +141,24 @@ ru:
         image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
         name: "Максимум 50 символов."
         slug: "Используется в URL. Только латинские буквы, цифры и дефис (кроме первого и последнего символа), максимум 50 символов."
+  course_lessons:
+    new:
+      title: "Новый урок"
+      heading: "Добавление урока"
+    edit:
+      title: "Редактирование урока"
+      heading: "Редактирование урока"
+    update:
+      success: "Урок успешно изменён"
+    destroy:
+      success: "Урок успешно удалён"
+    form:
+      guidelines:
+        duration: "Максимум 30 символов."
+        image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
+        name: "Максимум 200 символов."
+        video_url: "Максимум 250 символов."
+        video_file: "Видео в формате mp4."
   course_skills:
     new:
       title: "Новый навык"

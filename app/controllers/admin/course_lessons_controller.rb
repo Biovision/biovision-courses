@@ -3,7 +3,6 @@ class Admin::CourseLessonsController < AdminController
 
   # get /admin/course_lessons/:id
   def show
-    @collection = @entity.courses.page_for_administration(current_page)
   end
 
   private

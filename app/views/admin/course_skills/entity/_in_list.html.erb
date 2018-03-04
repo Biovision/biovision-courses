@@ -1,14 +1,16 @@
 <div class="data">
   <div><%= entity.body %></div>
 
-  <ul class="actions">
-    <li><%= edit_icon(edit_course_skill_path(entity.id)) %></li>
-    <%=
-      render(
-          partial: 'shared/actions/priority_changer',
-          locals:  { path: priority_admin_course_skill_path(entity.id) }
-      )
-    %>
-    <li class="danger"><%= destroy_icon(entity) %></li>
-  </ul>
+  <% unless entity.course.locked? %>
+    <ul class="actions">
+      <li><%= edit_icon(edit_course_skill_path(entity.id)) %></li>
+      <%=
+        render(
+            partial: 'shared/actions/priority_changer',
+            locals:  { path: priority_admin_course_skill_path(entity.id) }
+        )
+      %>
+      <li class="danger"><%= destroy_icon(entity) %></li>
+    </ul>
+  <% end %>
 </div>

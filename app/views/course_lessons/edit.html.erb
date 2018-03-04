@@ -1,0 +1,21 @@
+<% content_for :meta_title, t('.title') %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.courses.nav_item.text'), admin_courses_path) %>
+  <%= admin_course_link(@entity.course) %>
+  <%= link_to(t('admin.course_lessons.nav_item.text'), admin_course_lessons_path) %>
+  <%= admin_course_lesson_link(@entity) %>
+  <span><%= t('.heading') %></span>
+<% end %>
+
+<article>
+  <h1><%= t('.heading') %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_course_lesson_path(@entity.id)) %></li>
+    <% unless @entity.course.locked? %>
+      <li class="danger"><%= destroy_icon(@entity) %></li>
+    <% end %>
+  </ul>
+
+  <%= render partial: 'form', locals: { entity: @entity } %>
+</article>

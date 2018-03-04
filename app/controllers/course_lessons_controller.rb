@@ -5,7 +5,7 @@ class CourseLessonsController < AdminController
   def create
     @entity = CourseLesson.new(creation_parameters)
     if @entity.save
-      next_page = admin_course_path(@entity.course_id)
+      next_page = lessons_admin_course_path(@entity.course_id)
       respond_to do |format|
         format.html { redirect_to(next_page) }
         format.js { render(js: "document.location.href = '#{next_page}'") }
@@ -22,7 +22,7 @@ class CourseLessonsController < AdminController
   # patch /course_lessons/:id
   def update
     if @entity.update entity_parameters
-      next_page = admin_course_path(@entity.course_id)
+      next_page = lessons_admin_course_path(@entity.course_id)
       respond_to do |format|
         format.html { redirect_to(next_page, notice: t('course_lessons.update.success')) }
         format.js { render(js: "document.location.href = '#{next_page}'") }
@@ -37,7 +37,7 @@ class CourseLessonsController < AdminController
     if @entity.destroy
       flash[:notice] = t('course_lessons.destroy.success')
     end
-    redirect_to(admin_course_path(@entity.course_id))
+    redirect_to(lessons_admin_course_path(@entity.course_id))
   end
 
   protected
