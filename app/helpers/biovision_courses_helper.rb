@@ -106,8 +106,6 @@ module BiovisionCoursesHelper
 
   # @param [Teacher] entity
   def teacher_image_preview(entity)
-    return '' if entity.image.blank?
-
     versions = "#{entity.image.small.url} 2x"
     image_tag(entity.image.preview.url, alt: entity.full_name, srcset: versions)
   end
@@ -115,8 +113,6 @@ module BiovisionCoursesHelper
   # @param [Teacher] entity
   # @param [Hash] add_options
   def teacher_image_small(entity, add_options = {})
-    return '' if entity.image.blank?
-
     alt_text = entity.full_name
     versions = "#{entity.image.medium.url} 2x"
     options  = { alt: alt_text, srcset: versions }.merge(add_options)
