@@ -11,7 +11,6 @@ class CourseSkill < ApplicationRecord
   validates_length_of :body, maximum: BODY_LIMIT
 
   scope :ordered_by_priority, -> { order 'priority asc, body asc' }
-  scope :visible, -> { where(visible: true) }
   scope :siblings, ->(course_id) { where(course_id: course_id) }
 
   def self.page_for_administration

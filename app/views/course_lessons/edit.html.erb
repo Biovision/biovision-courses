@@ -2,7 +2,7 @@
 <% content_for :breadcrumbs do %>
   <%= link_to(t('admin.courses.nav_item.text'), admin_courses_path) %>
   <%= admin_course_link(@entity.course) %>
-  <%= link_to(t('admin.course_lessons.nav_item.text'), admin_course_lessons_path) %>
+  <%= link_to(t('admin.course_lessons.nav_item.text'), lessons_admin_course_path(@entity.course_id)) %>
   <%= admin_course_lesson_link(@entity) %>
   <span><%= t('.heading') %></span>
 <% end %>
