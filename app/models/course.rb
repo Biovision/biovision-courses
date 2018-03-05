@@ -100,6 +100,21 @@ class Course < ApplicationRecord
     course_teachers.where(teacher: teacher).delete_all
   end
 
+  # @param [CourseTag] course_tag
+  def course_tag?(course_tag)
+    course_course_tags.exists?(course_tag: course_tag)
+  end
+
+  # @param [CourseTag] course_tag
+  def add_course_tag(course_tag)
+    CourseCourseTag.find_or_create_by(course: self, course_tag: course_tag)
+  end
+
+  # @param [CourseTag] course_tag
+  def remove_course_tag(course_tag)
+    course_course_tags.where(course_tag: course_tag).delete_all
+  end
+
   # @param [Integer] delta
   def change_priority(delta)
     new_priority = priority + delta

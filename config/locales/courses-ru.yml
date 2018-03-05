@@ -5,6 +5,12 @@ ru:
     few: "%{count} курса"
     many: "%{count} курсов"
     other: "%{count} курсов"
+  course_lesson_count:
+    zero: "ни одного занятия"
+    one: "%{count} занятие"
+    few: "%{count} занятия"
+    many: "%{count} занятий"
+    other: "%{count} занятий"
   activerecord:
     models:
       course: "Курс"
@@ -115,6 +121,8 @@ ru:
       entity:
         teachers:
           heading: "Преподаватели"
+        course_tags:
+          heading: "Метки курса"
     teachers:
       nav_item:
         description: "Управление преподавателями"

@@ -35,6 +35,22 @@ class Admin::CoursesController < AdminController
     head :no_content
   end
 
+  # put /admin/courses/:id/course_tags/:course_tag_id
+  def add_course_tag
+    course_tag = CourseTag.find_by(id: params[:course_tag_id])
+    @entity.add_course_tag(course_tag) unless course_tag.nil?
+
+    head :no_content
+  end
+
+  # delete /admin/courses/:id/course_tags/:course_tag_id
+  def remove_course_tag
+    course_tag = CourseTag.find_by(id: params[:course_tag_id])
+    @entity.remove_course_tag(course_tag) unless course_tag.nil?
+
+    head :no_content
+  end
+
   private
 
   def set_entity

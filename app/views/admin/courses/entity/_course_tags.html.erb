@@ -1,0 +1,22 @@
+<section>
+  <h2><%= t('.heading') %></h2>
+
+  <ul class="entity-links">
+    <% CourseTag.ordered_by_name.each do |course_tag| %>
+      <li>
+        <% element_id = "course_tag_#{course_tag.id}" %>
+        <%=
+          check_box_tag(
+              'course_tags[]',
+              course_tag.id,
+              entity.course_tag?(course_tag),
+              id: element_id,
+              class: 'visually-hidden',
+              data: { url: course_tag_admin_course_path(entity.id, course_tag.id) }
+          )
+        %>
+        <%= label_tag(element_id, course_tag.name) %>
+      </li>
+    <% end %>
+  </ul>
+</section>

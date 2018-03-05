@@ -3,10 +3,15 @@
 </div>
 <div class="data">
   <div><%= admin_course_link(entity) %></div>
-  <div class="secondary info">
+  <div class="info">
     <%= entity.slug %><br/>
     <%= admin_course_category_link(entity.course_category, entity.course_category.full_title) %>
   </div>
+  <% if entity.tags_cache.any? %>
+    <div class="secondary info">
+      <%= entity.tags_cache.join(', ') %>
+    </div>
+  <% end %>
 
   <%=
     render(

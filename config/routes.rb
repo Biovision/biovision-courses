@@ -23,6 +23,8 @@ Rails.application.routes.draw do
         post 'toggle', defaults: { format: :json }
         put 'teachers/:teacher_id' => :add_teacher, as: :teacher, defaults: { format: :json }
         delete 'teachers/:teacher_id' => :remove_teacher, defaults: { format: :json }
+        put 'course_tags/:course_tag_id' => :add_course_tag, as: :course_tag, defaults: { format: :json }
+        delete 'course_tags/:course_tag_id' => :remove_course_tag, defaults: { format: :json }
         get 'lessons'
       end
     end
