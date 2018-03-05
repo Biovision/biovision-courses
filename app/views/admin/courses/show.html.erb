@@ -148,4 +148,7 @@
       %>
     </section>
   <% end %>
+
+  <%= render partial: 'admin/courses/entity/teachers', locals: { entity: @entity } %>
+  <%= render partial: 'admin/courses/entity/course_tags', locals: { entity: @entity } %>
 </article>

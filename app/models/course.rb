@@ -25,6 +25,8 @@ class Course < ApplicationRecord
   has_many :course_tags, through: :course_course_tags
   has_many :course_skills, dependent: :delete_all
   has_many :course_lessons, dependent: :destroy
+  has_many :course_teachers, dependent: :delete_all
+  has_many :teachers, through: :course_teachers
 
   after_initialize :set_next_priority
   before_validation { self.slug = Canonizer.transliterate(title.to_s) if slug.blank? }
@@ -81,6 +83,21 @@ class Course < ApplicationRecord
   # @param [User] user
   def lockable_by?(user)
     UserPrivilege.user_has_privilege?(user, :chief_course_manager)
+  end
+
+  # @param [Teacher] teacher
+  def teacher?(teacher)
+    course_teachers.exists?(teacher: teacher)
+  end
+
+  # @param [Teacher] teacher
+  def add_teacher(teacher)
+    CourseTeacher.find_or_create_by(course: self, teacher: teacher)
+  end
+
+  # @param [Teacher] teacher
+  def remove_teacher(teacher)
+    course_teachers.where(teacher: teacher).delete_all
   end
 
   # @param [Integer] delta

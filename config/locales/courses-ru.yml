@@ -112,6 +112,9 @@ ru:
       lessons:
         title: "Уроки курса «%{course}»"
         heading: "Уроки"
+      entity:
+        teachers:
+          heading: "Преподаватели"
     teachers:
       nav_item:
         description: "Управление преподавателями"

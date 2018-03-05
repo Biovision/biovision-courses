@@ -19,6 +19,22 @@ class Admin::CoursesController < AdminController
     @collection = @entity.course_lessons.ordered_by_priority
   end
 
+  # put /admin/courses/:id/teachers/:teacher_id
+  def add_teacher
+    teacher = Teacher.find_by(id: params[:teacher_id])
+    @entity.add_teacher(teacher) unless teacher.nil?
+
+    head :no_content
+  end
+
+  # delete /admin/courses/:id/teachers/:teacher_id
+  def remove_teacher
+    teacher = Teacher.find_by(id: params[:teacher_id])
+    @entity.remove_teacher(teacher) unless teacher.nil?
+
+    head :no_content
+  end
+
   private
 
   def set_entity

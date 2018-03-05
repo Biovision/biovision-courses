@@ -1,0 +1,22 @@
+<section>
+  <h2><%= t('.heading') %></h2>
+
+  <ul class="entity-links">
+    <% Teacher.ordered_by_name.each do |teacher| %>
+      <li>
+        <% element_id = "course_teacher_#{teacher.id}" %>
+        <%=
+          check_box_tag(
+              'course_teachers[]',
+              teacher.id,
+              entity.teacher?(teacher),
+              id: element_id,
+              class: 'visually-hidden',
+              data: { url: teacher_admin_course_path(entity.id, teacher.id) }
+          )
+        %>
+        <%= label_tag(element_id, teacher.full_name) %>
+      </li>
+    <% end %>
+  </ul>
+</section>
