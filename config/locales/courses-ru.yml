@@ -62,7 +62,7 @@ ru:
         name: "Название"
         priority: "Порядок сортировки"
         uuid: "UUID"
-        video_url: "Ссылка на видео"
+        video_url: "Идентификатор видео youtube"
         video_file: "Файл с видео"
       course_skill:
         course: "Курс"
@@ -168,7 +168,7 @@ ru:
         duration: "Максимум 30 символов."
         image: "Максимальный размер — 3000×3000, формат — JPG или PNG."
         name: "Максимум 200 символов."
-        video_url: "Максимум 250 символов."
+        video_url: "Идентификатор видео в YouTube."
         video_file: "Видео в формате mp4."
   course_skills:
     new:
@@ -224,6 +224,9 @@ ru:
     index:
       title: "Все курсы, страница %{page}"
       heading: "Все курсы"
+    lesson:
+      title: "Курс «%{course}», урок «%{lesson}»"
+      to_course: "К курсу"
   teachers:
     edit:
       title: "Редактирование преподавателя"

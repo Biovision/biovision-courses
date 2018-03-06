@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  resources :courses, :course_categories, :course_tags
+  resources :course_categories, :course_tags
+  resources :courses do
+    member do
+      get 'lessons/(:number)' => :lesson, as: :lesson
+    end
+  end
   resources :teachers, except: [:index, :show]
   resources :course_lessons, :course_skills, except: [:new, :index, :show]
 

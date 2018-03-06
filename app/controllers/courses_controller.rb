@@ -1,6 +1,6 @@
 class CoursesController < ApplicationController
   before_action :restrict_access, only: [:new, :create]
-  before_action :set_entity, only: [:edit, :update, :destroy]
+  before_action :set_entity, except: [:index, :new, :create]
   before_action :restrict_editing, only: [:edit, :update, :destroy]
 
   layout 'admin', only: [:new, :edit]
@@ -62,6 +62,14 @@ class CoursesController < ApplicationController
       flash[:notice] = t('courses.destroy.success')
     end
     redirect_to admin_courses_path
+  end
+
+  # get /courses/:id/lessons/:number
+  def lesson
+    redirect_to(course_path(@entity.id)) if params[:number].nil?
+
+    @lesson = @entity.course_lessons.find_by(priority: params[:number])
+    redirect_to(course_path(@entity.id)) if @lesson.nil?
   end
 
   private
