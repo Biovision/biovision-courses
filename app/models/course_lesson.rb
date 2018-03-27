@@ -4,9 +4,11 @@ class CourseLesson < ApplicationRecord
   NAME_LIMIT     = 250
   DURATION_LIMIT = 30
   URL_LIMIT      = 250
+  LEAD_LIMIT     = 1000
 
   mount_uploader :image, CourseImageUploader
   mount_uploader :video_file, LessonVideoUploader
+  mount_uploader :preview_file, LessonPreviewUploader
 
   belongs_to :course
 
@@ -28,7 +30,10 @@ class CourseLesson < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(priority body duration image name video_url video_file)
+    %i(
+      priority duration name image
+      body video_url video_file lead preview_url preview_file
+    )
   end
 
   def self.creation_parameters
@@ -45,6 +50,11 @@ class CourseLesson < ApplicationRecord
 
   def locked?
     course.locked?
+  end
+
+  # @param [User] user
+  def editable_by?(user)
+    course.editable_by?(user)
   end
 
   # @param [Integer] delta

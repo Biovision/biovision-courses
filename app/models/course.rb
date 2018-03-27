@@ -18,6 +18,7 @@ class Course < ApplicationRecord
 
   mount_uploader :image, CourseImageUploader
 
+  belongs_to :language, optional: true
   belongs_to :course_category, counter_cache: true
   belongs_to :user, optional: true
   belongs_to :agent, optional: true
@@ -35,7 +36,7 @@ class Course < ApplicationRecord
 
   validates_presence_of :title, :slug
   validates_uniqueness_of :title
-  validates_uniqueness_of :slug
+  validates_uniqueness_of :slug, scope: [:language_id]
   validates_length_of :title, maximum: TITLE_LIMIT
   validates_length_of :subtitle, maximum: TITLE_LIMIT
   validates_length_of :slug, maximum: SLUG_LIMIT
@@ -70,7 +71,7 @@ class Course < ApplicationRecord
     texts      = %i(title subtitle slug lead description duration)
     decoration = %i(price special_price special_price_end image image_alt_text)
     meta_texts = %i(meta_title meta_keywords meta_description metadata)
-    meta_data  = %i(course_category_id priority visible highlight online)
+    meta_data  = %i(language_id course_category_id priority visible highlight online)
 
     texts + decoration + meta_texts + meta_data
   end

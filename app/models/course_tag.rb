@@ -13,6 +13,7 @@ class CourseTag < ApplicationRecord
 
   mount_uploader :image, CourseImageUploader
 
+  belongs_to :language, optional: true
   has_many :course_course_tags, dependent: :destroy
   has_many :courses, through: :course_course_tags
 
@@ -36,7 +37,7 @@ class CourseTag < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(visible image name slug)
+    %i(language_id visible image name slug)
   end
 
   def image_alt_text

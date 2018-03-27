@@ -104,6 +104,44 @@
         )
       %>
     </dd>
+
+    <dt><%= f.label :preview_file %></dt>
+    <dd>
+      <%=
+        f.file_field(
+            :preview_file,
+            id:     :course_lesson_preview_file,
+            accept: 'video/mp4',
+            )
+      %>
+      <div class="guideline"><%= t('.guidelines.preview_file') %></div>
+    </dd>
+
+    <dt><%= f.label :preview_url %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :preview_url,
+            id:        :course_lesson_preview_url,
+            size:      nil,
+            maxlength: CourseLesson::URL_LIMIT
+        )
+      %>
+      <div class="guideline"><%= t('.guidelines.preview_url') %></div>
+    </dd>
+
+    <dt><%= f.label :lead %></dt>
+    <dd>
+      <%=
+        f.text_area(
+            :lead,
+            id:   :course_lesson_lead,
+            cols: 80,
+            rows: 25,
+            maxlength: CourseLesson::LEAD_LIMIT
+        )
+      %>
+    </dd>
   </dl>
 
   <div class="buttons">

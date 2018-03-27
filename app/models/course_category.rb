@@ -11,6 +11,7 @@ class CourseCategory < ApplicationRecord
 
   mount_uploader :image, CourseImageUploader
 
+  belongs_to :language, optional: true
   belongs_to :parent, class_name: CourseCategory.to_s, optional: true, touch: true
   has_many :child_categories, class_name: CourseCategory.to_s, foreign_key: :parent_id, dependent: :destroy
   has_many :courses, dependent: :destroy
@@ -37,7 +38,7 @@ class CourseCategory < ApplicationRecord
   scope :siblings, ->(parent_id) { where(parent_id: parent_id) }
 
   def self.entity_parameters
-    %i(image name slug priority visible)
+    %i(language_id image name slug priority visible)
   end
 
   def self.creation_parameters
