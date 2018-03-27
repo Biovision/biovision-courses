@@ -11,11 +11,11 @@
   <%=
     render(
         partial: 'shared/admin/toggleable',
-        locals:  { entity: entity, url: toggle_admin_course_tag_path(entity.id) }
+        locals:  { entity: entity, url: toggle_admin_course_tag_path(id: entity.id) }
     )
   %>
 
   <ul class="actions">
-    <li><%= edit_icon(edit_course_tag_path(entity.id)) %></li>
+    <li><%= edit_icon(edit_course_tag_path(id: entity.id)) %></li>
   </ul>
 </div>

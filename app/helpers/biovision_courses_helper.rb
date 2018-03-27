@@ -2,31 +2,31 @@ module BiovisionCoursesHelper
   # @param [Teacher] entity
   # @param [String] text
   def admin_teacher_link(entity, text = entity.full_name)
-    link_to(text, admin_teacher_path(entity.id))
+    link_to(text, admin_teacher_path(id: entity.id))
   end
 
   # @param [CourseLesson] entity
   # @param [String] text
   def admin_course_lesson_link(entity, text = entity.name)
-    link_to(text, admin_course_lesson_path(entity.id))
+    link_to(text, admin_course_lesson_path(id: entity.id))
   end
 
   # @param [CourseTag] entity
   # @param [String] text
   def admin_course_tag_link(entity, text = entity.name)
-    link_to(text, admin_course_tag_path(entity.id))
+    link_to(text, admin_course_tag_path(id: entity.id))
   end
 
   # @param [CourseCategory] entity
   # @param [String] text
   def admin_course_category_link(entity, text = entity.name)
-    link_to(text, admin_course_category_path(entity.id))
+    link_to(text, admin_course_category_path(id: entity.id))
   end
 
   # @param [Course] entity
   # @param [String] text
   def admin_course_link(entity, text = entity.title)
-    link_to(text, admin_course_path(entity.id))
+    link_to(text, admin_course_path(id: entity.id))
   end
 
   def course_categories_for_select
@@ -51,21 +51,21 @@ module BiovisionCoursesHelper
   # @param [String] text
   # @param [Hash] options
   def course_link(entity, text = entity.title, options = {})
-    link_to(text, course_path(entity.id), options)
+    link_to(text, course_path(id: entity.id), options)
   end
 
   # @param [CourseCategory] entity
   # @param [String] text
   # @param [Hash] options
   def course_category_link(entity, text = entity.name, options = {})
-    link_to(text, course_category_path(entity.id), options)
+    link_to(text, course_category_path(id: entity.id), options)
   end
 
   # @param [CourseTag] entity
   # @param [String] text
   # @param [Hash] options
   def course_tag_link(entity, text = entity.name, options = {})
-    link_to(text, course_tag_path(entity.id), options)
+    link_to(text, course_tag_path(id: entity.id), options)
   end
 
   # Course image preview for displaying in "administrative" lists

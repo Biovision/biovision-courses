@@ -2,7 +2,7 @@
 <% content_for :breadcrumbs do %>
   <%= link_to(t('admin.courses.nav_item.text'), admin_courses_path) %>
   <%= admin_course_link(@entity.course) %>
-  <%= link_to(t('admin.course_lessons.nav_item.text'), lessons_admin_course_path(@entity.course_id)) %>
+  <%= link_to(t('admin.course_lessons.nav_item.text'), lessons_admin_course_path(id: @entity.course_id)) %>
   <span><%= @entity.name %></span>
 <% end %>
 
@@ -10,10 +10,10 @@
   <h1><%= @entity.name %></h1>
 
   <ul class="actions">
-    <li><%= back_icon(admin_course_path(@entity.id)) %></li>
-    <li><%= return_icon(lessons_admin_course_path(@entity.id)) %></li>
+    <li><%= back_icon(admin_course_path(id: @entity.id)) %></li>
+    <li><%= return_icon(lessons_admin_course_path(id: @entity.id)) %></li>
     <% unless @entity.course.locked? %>
-      <li><%= edit_icon(edit_course_lesson_path(@entity.id)) %></li>
+      <li><%= edit_icon(edit_course_lesson_path(id: @entity.id)) %></li>
     <% end %>
   </ul>
 

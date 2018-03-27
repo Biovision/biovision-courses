@@ -10,7 +10,7 @@
   <ul class="actions">
     <li><%= back_icon(admin_courses_path) %></li>
     <% if @entity.editable_by?(current_user) && !@entity.locked? %>
-      <li><%= edit_icon(edit_course_path(@entity.id)) %></li>
+      <li><%= edit_icon(edit_course_path(id: @entity.id)) %></li>
     <% end %>
   </ul>
 
@@ -18,7 +18,7 @@
     <%=
       link_to(
           t('admin.course_lessons.nav_item.text'),
-          lessons_admin_course_path(@entity.id),
+          lessons_admin_course_path(id: @entity.id),
           class: 'button-nav'
       )
     %>
@@ -118,7 +118,7 @@
         partial: 'shared/admin/toggleable',
         locals:  {
             entity: @entity,
-            url:    toggle_admin_course_path(@entity.id)
+            url:    toggle_admin_course_path(id: @entity.id)
         }
     )
   %>

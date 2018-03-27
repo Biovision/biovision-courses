@@ -18,14 +18,9 @@ class CourseCategoriesController < ApplicationController
   def create
     @entity = CourseCategory.new(creation_parameters)
     if @entity.save
-      next_page = admin_course_category_path(@entity.id)
-      respond_to do |format|
-        format.html { redirect_to(next_page) }
-        format.json { render json: { links: { self: next_page } } }
-        format.js { render(js: "document.location.href = '#{next_page}'") }
-      end
+      form_processed_ok(admin_course_category_path(id: @entity.id))
     else
-      render :new, status: :bad_request
+      form_processed_with_error(:new)
     end
   end
 
@@ -41,14 +36,9 @@ class CourseCategoriesController < ApplicationController
   # patch /course_categories/:id
   def update
     if @entity.update entity_parameters
-      next_page = admin_course_category_path(@entity.id)
-      respond_to do |format|
-        format.html { redirect_to(next_page, notice: t('course_categories.update.success')) }
-        format.json { render json: { links: { self: next_page } } }
-        format.js { render(js: "document.location.href = '#{next_page}'") }
-      end
+      form_processed_ok(admin_course_category_path(id: @entity.id))
     else
-      render :edit, status: :bad_request
+      form_processed_with_error(:edit)
     end
   end
 

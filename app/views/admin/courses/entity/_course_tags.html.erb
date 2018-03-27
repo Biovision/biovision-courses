@@ -12,7 +12,7 @@
               entity.course_tag?(course_tag),
               id: element_id,
               class: 'visually-hidden',
-              data: { url: course_tag_admin_course_path(entity.id, course_tag.id) }
+              data: { url: course_tag_admin_course_path(id: entity.id, course_tag_id: course_tag.id) }
           )
         %>
         <%= label_tag(element_id, course_tag.name) %>

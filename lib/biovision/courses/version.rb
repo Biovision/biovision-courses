@@ -1,5 +1,5 @@
 module Biovision
   module Courses
-    VERSION = '0.0.180304'
+    VERSION = '0.1.180326'
   end
 end

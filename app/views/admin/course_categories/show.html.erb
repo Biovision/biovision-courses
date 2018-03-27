@@ -13,7 +13,7 @@
   <ul class="actions">
     <li><%= return_icon(admin_course_categories_path) %></li>
     <% if current_user_has_privilege?(:chief_course_manager) %>
-      <li><%= edit_icon(edit_course_category_path(@entity.id)) %></li>
+      <li><%= edit_icon(edit_course_category_path(id: @entity.id)) %></li>
     <% end %>
   </ul>
 
@@ -54,7 +54,7 @@
         partial: 'shared/admin/toggleable',
         locals:  {
             entity: @entity,
-            url:    toggle_admin_course_category_path(@entity.id)
+            url:    toggle_admin_course_category_path(id: @entity.id)
         }
     )
   %>

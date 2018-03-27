@@ -5,13 +5,9 @@ class CourseSkillsController < AdminController
   def create
     @entity = CourseSkill.new(creation_parameters)
     if @entity.save
-      next_page = admin_course_path(@entity.course_id)
-      respond_to do |format|
-        format.html { redirect_to(next_page) }
-        format.js { render(js: "document.location.href = '#{next_page}'") }
-      end
+      form_processed_ok(admin_course_path(id: @entity.course_id))
     else
-      render :new, status: :bad_request
+      form_processed_with_error(:new)
     end
   end
 
@@ -22,13 +18,9 @@ class CourseSkillsController < AdminController
   # patch /course_skills/:id
   def update
     if @entity.update entity_parameters
-      next_page = admin_course_path(@entity.course_id)
-      respond_to do |format|
-        format.html { redirect_to(next_page, notice: t('course_skills.update.success')) }
-        format.js { render(js: "document.location.href = '#{next_page}'") }
-      end
+      form_processed_ok(admin_course_path(id: @entity.course_id))
     else
-      render :edit, status: :bad_request
+      form_processed_with_error(:edit)
     end
   end
 
@@ -37,7 +29,7 @@ class CourseSkillsController < AdminController
     if @entity.destroy
       flash[:notice] = t('course_skills.destroy.success')
     end
-    redirect_to(admin_course_path(@entity.course_id))
+    redirect_to(admin_course_path(id: @entity.course_id))
   end
 
   protected

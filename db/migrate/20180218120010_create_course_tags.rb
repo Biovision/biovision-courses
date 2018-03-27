@@ -3,6 +3,7 @@ class CreateCourseTags < ActiveRecord::Migration[5.1]
     unless CourseTag.table_exists?
       create_table :course_tags do |t|
         t.timestamps
+        t.references :language, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.boolean :visible, default: true, null: false
         t.integer :courses_count, default: 0, null: false
         t.string :name, null: false

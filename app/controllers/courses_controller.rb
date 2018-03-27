@@ -19,14 +19,9 @@ class CoursesController < ApplicationController
   def create
     @entity = Course.new(creation_parameters)
     if @entity.save
-      next_page = admin_course_path(@entity.id)
-      respond_to do |format|
-        format.html { redirect_to next_page }
-        format.json { render json: { links: { self: next_page } } }
-        format.js { render js: "document.location.href = '#{next_page}'" }
-      end
+      form_processed_ok(admin_course_path(id: @entity.id))
     else
-      render :new, status: :bad_request
+      form_processed_with_error(:new)
     end
   end
 
@@ -45,14 +40,9 @@ class CoursesController < ApplicationController
   # patch /courses/:id
   def update
     if @entity.update(entity_parameters)
-      next_page = admin_course_path(@entity.id)
-      respond_to do |format|
-        format.html { redirect_to next_page }
-        format.json { render json: { links: { self: next_page } } }
-        format.js { render js: "document.location.href = '#{next_page}'" }
-      end
+      form_processed_ok(admin_course_path(id: @entity.id))
     else
-      render :edit, status: :bad_request
+      form_processed_with_error(:edit)
     end
   end
 
@@ -66,10 +56,10 @@ class CoursesController < ApplicationController
 
   # get /courses/:id/lessons/:number
   def lesson
-    redirect_to(course_path(@entity.id)) if params[:number].nil?
+    redirect_to(course_path(id: @entity.id)) if params[:number].nil?
 
     @lesson = @entity.course_lessons.find_by(priority: params[:number])
-    redirect_to(course_path(@entity.id)) if @lesson.nil?
+    redirect_to(course_path(id: @entity.id)) if @lesson.nil?
   end
 
   private

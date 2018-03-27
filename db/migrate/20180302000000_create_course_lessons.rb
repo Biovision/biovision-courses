@@ -10,7 +10,10 @@ class CreateCourseLessons < ActiveRecord::Migration[5.1]
         t.string :duration
         t.string :video_url
         t.string :video_file
+        t.string :preview_url
+        t.string :preview_file
         t.string :image
+        t.text :lead
         t.text :body
       end
     end

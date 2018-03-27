@@ -3,6 +3,7 @@ class CreateCourseCategories < ActiveRecord::Migration[5.1]
     unless CourseCategory.table_exists?
       create_table :course_categories do |t|
         t.timestamps
+        t.references :language, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.integer :parent_id
         t.boolean :visible, default: true, null: false
         t.boolean :deleted, default: false, null: false

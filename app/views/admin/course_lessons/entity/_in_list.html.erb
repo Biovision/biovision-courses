@@ -16,7 +16,7 @@
 
   <% unless entity.course.locked? %>
     <ul class="actions">
-      <li><%= edit_icon(edit_course_lesson_path(entity.id)) %></li>
+      <li><%= edit_icon(edit_course_lesson_path(id: entity.id)) %></li>
     </ul>
   <% end %>
 </div>

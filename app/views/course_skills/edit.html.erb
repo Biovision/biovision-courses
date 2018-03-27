@@ -11,7 +11,7 @@
   <h1><%= t('.heading') %></h1>
 
   <ul class="actions">
-    <li><%= return_icon(admin_course_path(@entity.course_id)) %></li>
+    <li><%= return_icon(admin_course_path(id: @entity.course_id)) %></li>
     <li class="danger"><%= destroy_icon(@entity) %></li>
   </ul>
 

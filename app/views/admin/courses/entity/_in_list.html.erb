@@ -16,7 +16,7 @@
   <%=
     render(
         partial: 'shared/admin/toggleable',
-        locals:  { entity: entity, url: toggle_admin_course_path(entity.id) }
+        locals:  { entity: entity, url: toggle_admin_course_path(id: entity.id) }
     )
   %>
 
@@ -28,16 +28,16 @@
               partial: 'shared/actions/locks',
               locals:  {
                   entity: entity,
-                  path:   lock_admin_course_path(entity.id)
+                  path:   lock_admin_course_path(id: entity.id)
               }
           )
         %>
       <% end %>
-      <li class="lockable <%= entity.locked? ? 'hidden' : '' %>"><%= edit_icon(edit_course_path(entity.id)) %></li>
+      <li class="lockable <%= entity.locked? ? 'hidden' : '' %>"><%= edit_icon(edit_course_path(id: entity.id)) %></li>
       <%=
         render(
             partial: 'shared/actions/priority_changer',
-            locals:  { path: priority_admin_course_path(entity.id) }
+            locals:  { path: priority_admin_course_path(id: entity.id) }
         )
       %>
     <% end %>

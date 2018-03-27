@@ -3,6 +3,7 @@ class CreateCourses < ActiveRecord::Migration[5.1]
     unless Course.table_exists?
       create_table :courses do |t|
         t.timestamps
+        t.references :language, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.references :course_category, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.references :user, foreign_key: { on_update: :cascade, on_delete: :nullify }
         t.references :agent, foreign_key: { on_update: :cascade, on_delete: :nullify }

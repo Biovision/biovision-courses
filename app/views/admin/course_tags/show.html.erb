@@ -10,8 +10,8 @@
   <ul class="actions">
     <li><%= back_icon(admin_course_tags_path) %></li>
     <% if current_user_has_privilege?(:chief_course_manager) %>
-      <li><%= create_icon(new_course_tag_path(@entity.id)) %></li>
-      <li><%= edit_icon(edit_course_tag_path(@entity.id)) %></li>
+      <li><%= create_icon(new_course_tag_path(id: @entity.id)) %></li>
+      <li><%= edit_icon(edit_course_tag_path(id: @entity.id)) %></li>
     <% end %>
   </ul>
 

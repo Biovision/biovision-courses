@@ -13,18 +13,18 @@
         partial: 'shared/admin/toggleable',
         locals:  {
             entity: entity,
-            url:    toggle_admin_course_category_path(entity.id)
+            url:    toggle_admin_course_category_path(id: entity.id)
         }
     )
   %>
 
   <% if current_user_has_privilege?(:chief_course_manager) %>
     <ul class="actions">
-      <li><%= edit_icon edit_course_category_path(entity.id) %></li>
+      <li><%= edit_icon edit_course_category_path(id: entity.id) %></li>
       <%=
         render(
             partial: 'shared/actions/priority_changer',
-            locals:  { path: priority_admin_course_category_path(entity.id) }
+            locals:  { path: priority_admin_course_category_path(id: entity.id) }
         )
       %>
     </ul>

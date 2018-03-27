@@ -12,7 +12,7 @@
               entity.teacher?(teacher),
               id: element_id,
               class: 'visually-hidden',
-              data: { url: teacher_admin_course_path(entity.id, teacher.id) }
+              data: { url: teacher_admin_course_path(id: entity.id, teacher_id: teacher.id) }
           )
         %>
         <%= label_tag(element_id, teacher.full_name) %>
