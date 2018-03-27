@@ -1,96 +1,94 @@
-<%= form_with model: entity, html: { id: 'course_category-form' } do |f| %>
-    <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
+<%= form_with model: entity, html: { id: "#{entity.class.to_s.underscore}-form" } do |f| %>
+  <%= render partial: 'shared/list_of_errors', locals: { entity: entity } %>
 
-    <dl>
-      <% unless entity.id.nil? %>
-          <% unless entity.parent_id.nil? %>
-              <dt><%= t('activerecord.attributes.course_category.parent_id') %></dt>
-              <dd>
-                <%= admin_course_category_link(entity.parent) %>
-              </dd>
-          <% end %>
+  <dl>
+    <% unless entity.id.nil? %>
+      <% unless entity.parent_id.nil? %>
+        <dt><%= t('activerecord.attributes.course_category.parent_id') %></dt>
+        <dd>
+          <%= admin_course_category_link(entity.parent) %>
+        </dd>
       <% end %>
+    <% end %>
 
-      <dt><%= f.label :image %></dt>
-      <dd>
-        <figure role="group" class="preview" id="course_category-image">
-          <% if entity.image.blank? %>
-            <%= f.label :image, image_tag('biovision/base/placeholders/image.svg') %>
-          <% else %>
-            <%= f.label :image, image_tag(entity.image.big.url) %>
-          <% end %>
-          <figcaption>
-            <%=
-              f.file_field(
-                  :image,
-                  id: :course_category_image,
-                  accept: 'image/jpeg,image/png',
-                  data: { image: 'course_category-image' }
-              )
-            %>
-          </figcaption>
-        </figure>
-        <div class="guideline"><%= t('.guidelines.image') %></div>
-      </dd>
+    <dt><%= f.label :image %></dt>
+    <dd>
+      <figure role="group" class="preview" id="course_category-image">
+        <% if entity.image.blank? %>
+          <%= f.label :image, image_tag('biovision/base/placeholders/image.svg') %>
+        <% else %>
+          <%= f.label :image, image_tag(entity.image.big.url) %>
+        <% end %>
+        <figcaption>
+          <%=
+            f.file_field(
+                :image,
+                id:     :course_category_image,
+                accept: 'image/jpeg,image/png',
+                data:   { image: 'course_category-image' }
+            )
+          %>
+        </figcaption>
+      </figure>
+      <div class="guideline"><%= t('.guidelines.image') %></div>
+    </dd>
 
-      <dt><%= f.label :priority %></dt>
-      <dd>
-        <%=
-          f.number_field(
-              :priority,
-              id: :course_category_priority,
-              in: CourseCategory::PRIORITY_RANGE,
-              required: true
-          )
-        %>
-      </dd>
+    <dt><%= f.label :priority %></dt>
+    <dd>
+      <%=
+        f.number_field(
+            :priority,
+            id:       :course_category_priority,
+            in:       CourseCategory::PRIORITY_RANGE,
+            required: true
+        )
+      %>
+    </dd>
 
-      <dt><%= f.label :name %></dt>
-      <dd>
-        <%=
-          f.text_field(
-              :name,
-              id: :course_category_name,
-              size: nil,
-              maxlength: CourseCategory::NAME_LIMIT,
-              required: true,
-              data: { transliterate: 'course_category_slug' }
-          )
-        %>
-        <div class="guideline"><%= t('.guidelines.name') %></div>
-      </dd>
+    <dt><%= f.label :name %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :name,
+            id:        :course_category_name,
+            size:      nil,
+            maxlength: CourseCategory::NAME_LIMIT,
+            required:  true,
+            data:      { transliterate: 'course_category_slug' }
+        )
+      %>
+      <div class="guideline"><%= t('.guidelines.name') %></div>
+    </dd>
 
-      <dt><%= f.label :slug %></dt>
-      <dd>
-        <%=
-          f.text_field(
-              :slug,
-              id: :course_category_slug,
-              size: nil,
-              maxlength: CourseCategory::SLUG_LIMIT,
-              pattern: CourseCategory::SLUG_PATTERN_HTML,
-              title: t('.guidelines.slug'),
-              required: true
-          )
-        %>
-        <div class="guideline"><%= t('.guidelines.slug') %></div>
-      </dd>
+    <dt><%= f.label :slug %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :slug,
+            id:        :course_category_slug,
+            size:      nil,
+            maxlength: CourseCategory::SLUG_LIMIT,
+            pattern:   CourseCategory::SLUG_PATTERN_HTML,
+            title:     t('.guidelines.slug'),
+            required:  true
+        )
+      %>
+      <div class="guideline"><%= t('.guidelines.slug') %></div>
+    </dd>
 
-      <dt><%= t(:flags) %></dt>
-      <dd>
-        <ul class="flags">
-          <li>
-            <%= f.check_box :visible, id: :course_category_visible %>
-            <%= f.label :visible %>
-          </li>
-        </ul>
-      </dd>
-    </dl>
+    <dt><%= t(:flags) %></dt>
+    <dd>
+      <ul class="flags">
+        <li>
+          <%= f.check_box :visible, id: :course_category_visible %>
+          <%= f.label :visible %>
+        </li>
+      </ul>
+    </dd>
+  </dl>
 
-    <div class="buttons">
-      <% if entity.id.nil? %>
-          <%= f.hidden_field :parent_id %>
-      <% end %>
-      <%= f.button t(:save), type: :submit, class: 'button-save' %>
-    </div>
+  <div class="buttons">
+    <%= f.hidden_field :parent_id if entity.id.nil? %>
+    <%= f.button t(:save), type: :submit, class: 'button-save' %>
+  </div>
 <% end %>
