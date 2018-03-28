@@ -57,6 +57,12 @@ class CourseLesson < ApplicationRecord
     course.editable_by?(user)
   end
 
+  def preview?
+    has_video = !preview_file.blank? || !preview_url.blank?
+
+    has_video || !lead.blank?
+  end
+
   # @param [Integer] delta
   def change_priority(delta)
     new_priority = priority + delta
