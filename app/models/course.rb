@@ -116,6 +116,14 @@ class Course < ApplicationRecord
     course_course_tags.where(course_tag: course_tag).delete_all
   end
 
+  def effective_price
+    if special_price.to_i > 0
+      special_price.to_i
+    else
+      price.to_i
+    end
+  end
+
   # @param [Integer] delta
   def change_priority(delta)
     new_priority = priority + delta
