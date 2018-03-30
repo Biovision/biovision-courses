@@ -18,6 +18,7 @@ ru:
       course_lesson: "Урок курса"
       course_skill: "Навык курса"
       course_tag: "Метка курса"
+      course_user: "Пользователь курса"
       teacher: "Преподаватель"
     attributes:
       course:
@@ -82,6 +83,12 @@ ru:
         name: "Название"
         slug: "Идентификатор"
         visible: "Показывать"
+      course_user:
+        course: "Курс"
+        finished: "Окончен"
+        price: "Цена"
+        user: "Пользователь"
+        user_id: "Пользователь"
       teacher:
         description: "Описание"
         image: "Картинка"
@@ -114,6 +121,9 @@ ru:
         heading: "Метки курсов"
       show:
         title: "Метка курсов «%{name}»"
+    course_users:
+      nav_item:
+        text: "Пользователи"
     courses:
       nav_item:
         description: "Управление курсами"
@@ -132,6 +142,10 @@ ru:
           heading: "Преподаватели"
         course_tags:
           heading: "Метки курса"
+      users:
+        heading: "Пользователи курса"
+        title: "Пользователи курса «%{course}», страница %{page}"
+        add_user: "Добавить пользователя"
     teachers:
       nav_item:
         description: "Управление преподавателями"
@@ -252,7 +266,7 @@ ru:
         name: "Максимум 50 символов"
         title: "Максимум 250 символов."
     new:
-      title: "Добавление преподавателф"
+      title: "Добавление преподавателя"
       heading: "Новый преподаватель"
   index:
     index:

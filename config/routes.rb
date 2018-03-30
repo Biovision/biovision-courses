@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
   resources :course_categories, :course_tags, :courses, :teachers, only: [:update, :destroy]
-  resources :course_lessons, :course_skills, only: [:update, :destroy]
+  resources :course_lessons, :course_skills, :course_users, only: [:update, :destroy]
 
-  scope '(:locale)', constraints: { locale: /[a-z]{2}/ } do
+  scope '(:locale)', constraints: { locale: /[a-ln-z][a-z]|m[a-xz]/ } do
     resources :course_categories, :course_tags, except: [:update, :destroy]
     resources :courses, except: [:update, :destroy] do
       member do
@@ -35,6 +35,8 @@ Rails.application.routes.draw do
           put 'course_tags/:course_tag_id' => :add_course_tag, as: :course_tag, defaults: { format: :json }
           delete 'course_tags/:course_tag_id' => :remove_course_tag, defaults: { format: :json }
           get 'lessons'
+          get 'users'
+          post 'users' => :create_user, defaults: { format: :json }
         end
       end
       resources :course_lessons, only: [:show]

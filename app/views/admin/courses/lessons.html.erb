@@ -8,6 +8,10 @@
 <article>
   <h1><%= @entity.title %></h1>
 
+  <ul class="actions">
+    <li><%= return_icon(admin_course_path(id: @entity.id)) %></li>
+  </ul>
+
   <section>
     <h2><%= t('.heading') %></h2>
 

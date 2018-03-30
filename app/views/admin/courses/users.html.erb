@@ -1,0 +1,145 @@
+<% content_for :meta_title, t('.title', course: @entity.title, page: current_page) %>
+<% content_for :breadcrumbs do %>
+  <%= link_to(t('admin.courses.nav_item.text'), admin_courses_path) %>
+  <%= admin_course_link(@entity) %>
+  <span><%= t('admin.course_users.nav_item.text') %></span>
+<% end %>
+
+<article>
+  <h1><%= @entity.title %></h1>
+
+  <ul class="actions">
+    <li><%= return_icon(admin_course_path(id: @entity.id)) %></li>
+  </ul>
+
+  <section id="course-users">
+    <h2><%= t(:user_count, count: @entity.users_count) %></h2>
+
+    <%= render partial: 'shared/admin/list', locals: { collection: @collection } %>
+  </section>
+
+  <section>
+    <h2><%= t('.add_user') %></h2>
+
+    <%=
+      form_with(
+          scope:  :course_user,
+          url:    users_admin_course_path(id: @entity.id, format: :json),
+          method: :post,
+          local:  true,
+          html:   {
+              id: 'course_user-form'
+          }
+      ) do |f| %>
+      <dl>
+        <dt>
+          <%= f.label :user_id, t('activerecord.attributes.course_user.user') %>
+        </dt>
+        <dd>
+          <div>
+            id: <%=
+              f.number_field(
+                  :user_id,
+                  id:       'course_user_user_id',
+                  in:       User.ids_range,
+                  required: true
+              )
+            %>
+          </div>
+          <%= render partial: 'admin/users/search', locals: { target_id: 'course_user_user_id' } %>
+        </dd>
+
+        <dt>
+          <%= f.label :price, t('activerecord.attributes.course_user.price') %>
+        </dt>
+        <dd>
+          <%=
+            f.number_field(
+                :price,
+                id:    'course_user_price',
+                in:    (0..0xffffffff),
+                value: @entity.effective_price
+            )
+          %>
+        </dd>
+      </dl>
+      <div class="buttons">
+        <%= f.hidden_field :course_id, value: @entity.id %>
+        <%= f.button t(:save), type: :submit, class: 'button-save' %>
+      </div>
+    <% end %>
+  </section>
+</article>
+
+<script>
+    'use strict';
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const form = document.getElementById('course_user-form');
+
+        if (form) {
+            const section = document.getElementById('course-users');
+            let container = section.querySelector('ul.list-of-entities');
+            let warning = section.querySelector('div.message-box-warning');
+            let errors = form.querySelector('ol.errors');
+
+            const user_added = function () {
+                const response = JSON.parse(this.responseText);
+
+                if (response.hasOwnProperty('data')) {
+                    const data = response.data;
+
+                    if (!container) {
+                        container = document.createElement('ul');
+                        container.classList.add('list-of-entities');
+                        section.append(container);
+                    }
+                    if (warning) {
+                        warning.classList.add('hidden');
+                    }
+
+                    if (data.hasOwnProperty('meta')) {
+                        const li = document.createElement('li');
+
+                        li.setAttribute('data-id', data['id']);
+                        li.innerHTML = data.meta.html;
+
+                        container.prepend(li);
+                    }
+                }
+            };
+
+            const handle_error = function () {
+                console.log(this);
+                const response = JSON.parse(this.responseText);
+
+                if (response.hasOwnProperty('errors')) {
+                    if (!errors) {
+                        errors = document.createElement('ol');
+                        errors.classList.add('errors');
+                    }
+
+                    errors.innerHTML = '';
+
+                    response.errors.forEach((error) => {
+                        const li = document.createElement('li');
+                        li.innerHTML = error;
+
+                        errors.append(li);
+                    });
+
+                    form.prepend(errors);
+                    errors.scrollIntoView();
+                }
+            };
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+
+                const request = Biovision.new_ajax_request('post', form.action, user_added, handle_error);
+
+                request.send(new FormData(form));
+            });
+        }
+    });
+</script>

@@ -51,6 +51,18 @@ class Admin::CoursesController < AdminController
     head :no_content
   end
 
+  # get /admin/courses/:id/users
+  def users
+    @collection = @entity.course_users.page_for_administration(current_page)
+  end
+
+  # post /admin/courses/:id/users
+  def create_user
+    @course_user = CourseUser.new(course_user_parameters)
+    status = @course_user.save ? :created : :bad_request
+    render status: status
+  end
+
   private
 
   def set_entity
@@ -62,5 +74,9 @@ class Admin::CoursesController < AdminController
 
   def restrict_access
     require_privilege_group :course_managers
+  end
+
+  def course_user_parameters
+    params.require(:course_user).permit(CourseUser.creation_parameters)
   end
 end

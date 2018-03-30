@@ -28,6 +28,7 @@ class Course < ApplicationRecord
   has_many :course_lessons, dependent: :destroy
   has_many :course_teachers, dependent: :delete_all
   has_many :teachers, through: :course_teachers
+  has_many :course_users, dependent: :delete_all
 
   after_initialize :set_next_priority
   before_validation { self.slug = Canonizer.transliterate(title.to_s) if slug.blank? }
