@@ -275,3 +275,10 @@ ru:
           heading: "Категории курсов"
         tags:
           heading: "Метки курсов"
+  my:
+    courses:
+      nav_item:
+        text: "Курсы"
+        description: "Просмотр заказанных вами курсов"
+      index:
+        title: "Мои курсы, страница %{page}"

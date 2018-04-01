@@ -12,6 +12,10 @@
       <%= entity.tags_cache.join(', ') %>
     </div>
   <% end %>
+  <div class="secondary info">
+    <%= t(:course_lesson_count, count: entity.course_lessons.count) %>,
+    <%= t(:user_count, count: entity.users_count) %>
+  </div>
 
   <%=
     render(

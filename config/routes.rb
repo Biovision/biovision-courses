@@ -48,5 +48,13 @@ Rails.application.routes.draw do
 
       resources :teachers, only: [:index, :show]
     end
+
+    namespace :my do
+      resources :courses, only: [:index, :show] do
+        member do
+          get 'lessons/(:number)'
+        end
+      end
+    end
   end
 end
