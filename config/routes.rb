@@ -52,7 +52,7 @@ Rails.application.routes.draw do
     namespace :my do
       resources :courses, only: [:index, :show] do
         member do
-          get 'lessons/(:number)'
+          get 'lessons/(:number)' => :lesson, as: :lesson
         end
       end
     end
