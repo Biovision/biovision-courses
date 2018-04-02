@@ -1,0 +1,24 @@
+<% content_for :meta_title, t('.title', course: @entity.title, lesson: @lesson.name) %>
+
+<article class="courses-lesson">
+  <h1><%= @entity.title %></h1>
+  <h2><%= @lesson.name %></h2>
+
+  <figure>
+    <% if !@lesson.video_file.blank? %>
+      <%= video_tag(@lesson.video_file.url, controls: true) %>
+    <% elsif !@lesson.video_url.blank? %>
+      <div class="proportional-container r-16x9">
+        <iframe src="https://www.youtube.com/embed/<%= @lesson.video_url %>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    <% end %>
+  </figure>
+
+  <div class="description">
+    <%= raw(@lesson.body) %>
+  </div>
+
+  <footer>
+    <%= my_course_link(@entity, t('courses.lesson.to_course'), class: 'button-nav') %>
+  </footer>
+</article>

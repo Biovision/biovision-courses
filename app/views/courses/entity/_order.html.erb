@@ -1,0 +1,54 @@
+<% if entity.effective_price > 0 %>
+  <section id="buy-container">
+    <h2><%= t('.heading') %></h2>
+
+    <div class="buy_block_container">
+      <div class="price_container">
+        <div class="caption"><%= t('activerecord.attributes.course.price') %></div>
+        <div class="price"><%= entity.effective_price %> ₽</div>
+      </div>
+      <div class="form_container">
+        <%= form_tag "https://merchant.roboxchange.com/Index.aspx", class: 'buy_form' do %>
+          <div class="fields">
+            <%= hidden_field_tag 'MrchLogin', 'istudy-online.com' %>
+            <%= hidden_field_tag 'OutSum', entity.effective_price %>
+            <%= hidden_field_tag 'InvId', '42' %>
+            <%= hidden_field_tag 'Desc', 'desc' %>
+            <%= hidden_field_tag 'SignatureValue', 'xxxxxx' %>
+            <div class="row">
+              <div class="row_element">
+                <div class="element_caption">Имя</div>
+                <div class="element_field"><%= text_field_tag :firstname, current_user&.profile_data['name'], required: true, size: 18 %></div>
+              </div>
+              <div class="row_element">
+                <div class="element_caption">Фамилия</div>
+                <div class="element_field"><%= text_field_tag :lastname, current_user&.profile_data['surname'], required: true, size: 18 %></div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="row_element">
+                <div class="element_caption">E-mail</div>
+                <div class="element_field"><%= email_field_tag :email, current_user&.email, required: true, size: 18 %></div>
+              </div>
+              <div class="row_element">
+                <div class="element_caption">Телефон</div>
+                <div class="element_field"><%= telephone_field_tag :phone, current_user&.phone, required: true, size: 18 %></div>
+              </div>
+            </div>
+          </div>
+          <div class="actions">
+            <%= button_tag "Записаться", type: 'submit', class: 'buy-action' %>
+          </div>
+          <div class="checkboxes">
+            <div class="row">
+              <div class="element_field"><%= check_box_tag(:ofertaagree, 1, 1) %></div>
+              <div class="element_caption">Принимаю договор оферты и даю
+                согласие на обработку моих персональных данных
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </section>
+<% end %>

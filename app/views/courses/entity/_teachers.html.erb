@@ -1,0 +1,18 @@
+<% if entity.teachers.any? %>
+  <section id="course-teachers">
+    <h2><%= t('.heading') %></h2>
+
+    <ul>
+      <% entity.teachers.ordered_by_name.each do |teacher| %>
+        <li>
+          <div class="image"><%= teacher_image_small(teacher) %></div>
+          <div class="name"><%= teacher.full_name %></div>
+          <div class="title"><%= teacher.title %></div>
+          <div class="about">
+            <%= simple_format(teacher.description) %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

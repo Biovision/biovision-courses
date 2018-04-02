@@ -79,3 +79,14 @@
     max-width: 100%;
   }
 }
+
+.list-of-courses {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+    margin: 1.2rem 0 2.4rem;
+    padding: 0;
+  }
+}

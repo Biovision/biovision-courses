@@ -54,6 +54,13 @@ module BiovisionCoursesHelper
     link_to(text, course_path(id: entity.id), options)
   end
 
+  # @param [Course] entity
+  # @param [String] text
+  # @param [Hash] options
+  def my_course_link(entity, text = entity.title, options = {})
+    link_to(text, my_course_path(id: entity.id), options)
+  end
+
   # @param [CourseCategory] entity
   # @param [String] text
   # @param [Hash] options

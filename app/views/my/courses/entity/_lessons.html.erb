@@ -1,0 +1,18 @@
+<% if entity.course_lessons.any? %>
+  <section id="course-lessons">
+    <h2><%= t('courses.entity.lessons.heading') %></h2>
+
+    <ul>
+      <% entity.course_lessons.ordered_by_priority.each do |lesson| %>
+        <li>
+          <div class="name">
+            <%= link_to(lesson.name, lesson_my_course_path(id: @entity.id, number: lesson.priority)) %>
+          </div>
+          <div class="duration">
+            <%= lesson.duration %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

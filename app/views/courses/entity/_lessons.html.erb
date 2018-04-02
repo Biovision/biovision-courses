@@ -1,0 +1,59 @@
+<% if entity.course_lessons.any? %>
+  <section id="course-lessons">
+    <h2><%= t('.heading') %></h2>
+
+    <%= radio_button_tag('lesson_preview', 0, true, id: 'lesson_preview_0', class: 'visually-hidden') %>
+    <ul>
+      <% entity.course_lessons.ordered_by_priority.each do |lesson| %>
+        <li>
+          <% element_id = "lesson_preview_#{lesson.id}" %>
+          <div class="name">
+            <%= label_tag(element_id, lesson.name, class: lesson.preview? ? 'shows-popup' : '') %>
+            <%# link_to(lesson.name, lesson_course_path(id: @entity.id, number: lesson.priority)) %>
+          </div>
+          <div class="duration">
+            <%= lesson.duration %>
+          </div>
+          <% if lesson.preview? %>
+            <%= radio_button_tag('lesson_preview', lesson.id, false, id: element_id, class: 'visually-hidden') %>
+            <div class="preview-container">
+              <div>
+                <div class="control">
+                  <label for="lesson_preview_0">
+                    <%= image_tag('icons/close.svg') %>
+                  </label>
+                </div>
+                <figure>
+                  <figcaption><%= lesson.name %></figcaption>
+                  <% if !lesson.preview_file.blank? %>
+                    <%= video_tag(lesson.preview_file.url, controls: true) %>
+                  <% elsif !lesson.preview_url.blank? %>
+                    <div class="proportional-container r-16x9 video">
+                      <iframe src="https://www.youtube.com/embed/<%= lesson.preview_url %>" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    </div>
+                  <% else %>
+                    <div class="lead"><%= simple_format(lesson.lead) %></div>
+                  <% end %>
+                </figure>
+              </div>
+            </div>
+          <% end %>
+        </li>
+      <% end %>
+    </ul>
+  </section>
+
+  <script>
+      'use strict';
+
+      document.addEventListener('keyup', function (event) {
+          if ((event.key === 'Escape' || event.key === 'Esc' || event.keyCode === 27)) {
+              const radio = document.getElementById('lesson_preview_0');
+
+              if (radio) {
+                  radio.checked = true;
+              }
+          }
+      })
+  </script>
+<% end %>

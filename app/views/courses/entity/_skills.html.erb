@@ -1,0 +1,11 @@
+<% if @entity.course_skills.any? %>
+  <section id="course-skills">
+    <h2><%= t('.heading') %></h2>
+
+    <ul>
+      <% entity.course_skills.ordered_by_priority.each do |skill| %>
+        <li><%= skill.body %></li>
+      <% end %>
+    </ul>
+  </section>
+<% end %>

@@ -253,6 +253,13 @@ ru:
     lesson:
       title: "Курс «%{course}», урок «%{lesson}»"
       to_course: "К курсу"
+    entity:
+      skills:
+        heading: "Чему я научусь?"
+      lessons:
+        heading: "Программа"
+      teachers:
+        heading: "Лекторы"
   teachers:
     edit:
       title: "Редактирование преподавателя"
@@ -282,3 +289,6 @@ ru:
         description: "Просмотр заказанных вами курсов"
       index:
         title: "Мои курсы, страница %{page}"
+        heading: "Ваши курсы"
+      lesson:
+        title: "%{course}: урок «%{lesson}»"

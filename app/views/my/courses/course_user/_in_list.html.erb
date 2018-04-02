@@ -1,0 +1,13 @@
+<div class="course-preview">
+  <div class="image"><%= course_image_small(entity.course) %></div>
+  <div class="info">
+    <div class="title"><%= my_course_link(entity.course) %></div>
+    <div class="lead"><%= simple_format(entity.course.lead) %></div>
+    <div class="footer">
+      <div class="duration"><%= entity.course.duration %></div>
+      <div class="lessons">
+        <%= t(:course_lesson_count, count: entity.course.course_lessons.count) %>
+      </div>
+    </div>
+  </div>
+</div>

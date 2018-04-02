@@ -107,6 +107,11 @@ class Course < ApplicationRecord
     course_course_tags.exists?(course_tag: course_tag)
   end
 
+  # @param [User] user
+  def user?(user)
+    course_users.exists?(user: user)
+  end
+
   # @param [CourseTag] course_tag
   def add_course_tag(course_tag)
     CourseCourseTag.find_or_create_by(course: self, course_tag: course_tag)

@@ -1,0 +1,15 @@
+<% content_for :meta_title, @entity.title %>
+
+<article class="courses-show">
+  <div>
+    <div class="main">
+      <div>
+        <%= render partial: 'courses/entity/about', locals: { entity: @entity } %>
+        <%= render partial: 'courses/entity/skills', locals: { entity: @entity } %>
+        <%= render partial: 'my/courses/entity/lessons', locals: { entity: @entity } %>
+        <%= render partial: 'courses/entity/teachers', locals: { entity: @entity } %>
+        <%= render partial: 'courses/entity/order', locals: { entity: @entity } %>
+      </div>
+    </div>
+  </div>
+</article>
