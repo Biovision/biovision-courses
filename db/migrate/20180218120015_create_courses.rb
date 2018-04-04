@@ -21,6 +21,7 @@ class CreateCourses < ActiveRecord::Migration[5.1]
         t.string :title, null: false
         t.string :subtitle
         t.string :slug, null: false
+        t.string :robomarket_slug
         t.string :meta_title
         t.string :meta_description
         t.string :meta_keywords

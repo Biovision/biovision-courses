@@ -70,6 +70,19 @@
       <div class="guideline"><%= t('.guidelines.slug') %></div>
     </dd>
 
+    <dt><%= f.label :robomarket_slug %></dt>
+    <dd>
+      <%=
+        f.text_field(
+            :slug,
+            id:        :course_robomarket_slug,
+            size:      nil,
+            maxlength: Course::META_LIMIT
+        )
+      %>
+      <div class="guideline"><%= t('.guidelines.slug') %></div>
+    </dd>
+
     <dt><%= f.label :duration %></dt>
     <dd>
       <%=

@@ -49,6 +49,7 @@ class Course < ApplicationRecord
   validates_length_of :lead, maximum: LEAD_LIMIT
   validates_length_of :description, maximum: DESCRIPTION_LIMIT
   validates_length_of :duration, maximum: DURATION_LIMIT
+  validates_length_of :robomarket_slug, maximum: META_LIMIT
   validates_numericality_of :price, greater_than_or_equal_to: 0, allow_blank: true
   validates_numericality_of :special_price, greater_than_or_equal_to: 0, allow_blank: true
 
@@ -72,7 +73,7 @@ class Course < ApplicationRecord
     texts      = %i(title subtitle slug lead description duration)
     decoration = %i(price special_price special_price_end image image_alt_text)
     meta_texts = %i(meta_title meta_keywords meta_description metadata)
-    meta_data  = %i(language_id course_category_id priority visible highlight online)
+    meta_data  = %i(language_id course_category_id priority visible highlight online robomarket_slug)
 
     texts + decoration + meta_texts + meta_data
   end
