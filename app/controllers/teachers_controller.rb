@@ -1,5 +1,8 @@
-class TeachersController < AdminController
+class TeachersController < ApplicationController
+  before_action :restrict_access, except: [:index, :show]
   before_action :set_entity, only: [:edit, :update, :destroy]
+
+  layout 'admin', except: [:index, :show]
 
   # get /teachers/new
   def new
