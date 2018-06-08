@@ -9,7 +9,7 @@ Rails.application.routes.draw do
         get 'lessons/(:number)' => :lesson, as: :lesson
       end
     end
-    resources :teachers, only: [:new, :create, :edit]
+    resources :teachers, except: [:update, :destroy]
     resources :course_lessons, :course_skills, only: [:create, :edit]
 
     namespace :admin do
