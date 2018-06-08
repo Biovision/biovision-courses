@@ -1,4 +1,6 @@
 class Admin::TeachersController < AdminController
+  include ToggleableEntity
+
   before_action :set_entity, except: [:index]
 
   # get /admin/teachers

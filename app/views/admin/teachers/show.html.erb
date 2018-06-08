@@ -29,4 +29,14 @@
     <dt><%= t('activerecord.attributes.teacher.description') %></dt>
     <dd><%= @entity.description %></dd>
   </dl>
+
+  <%=
+    render(
+        partial: 'shared/admin/toggleable',
+        locals:  {
+            entity: @entity,
+            url:    toggle_admin_teacher_path(id: @entity.id)
+        }
+    )
+  %>
 </article>

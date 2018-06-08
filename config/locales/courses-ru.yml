@@ -96,6 +96,7 @@ ru:
         name: "Имя"
         surname: "Фамилия"
         title: "Титул/звание"
+        visible: "Показывать"
   admin:
     course_categories:
       nav_item:

@@ -1,8 +1,12 @@
 class Teacher < ApplicationRecord
+  include Toggleable
+
   PER_PAGE          = 20
   NAME_LIMIT        = 50
   TITLE_LIMIT       = 200
   DESCRIPTION_LIMIT = 2000
+
+  toggleable :visible
 
   mount_uploader :image, TeacherImageUploader
 
@@ -13,7 +17,8 @@ class Teacher < ApplicationRecord
   validates_length_of :description, maximum: DESCRIPTION_LIMIT
 
   scope :ordered_by_name, -> { order('surname asc, name asc') }
-  scope :list_for_visitors, -> { ordered_by_name }
+  scope :visible, -> { where(visible: true) }
+  scope :list_for_visitors, -> { visible.ordered_by_name }
 
   # @param [Integer] page
   def self.page_for_administration(page = 1)
@@ -26,7 +31,7 @@ class Teacher < ApplicationRecord
   end
 
   def self.entity_parameters
-    %i(name surname title image description)
+    %i(name surname title image description visible)
   end
 
   def full_name

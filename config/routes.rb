@@ -46,7 +46,11 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :teachers, only: [:index, :show]
+      resources :teachers, only: [:index, :show] do
+        member do
+          post 'toggle', defaults: { format: :json }
+        end
+      end
     end
 
     namespace :my do
