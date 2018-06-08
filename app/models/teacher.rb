@@ -13,6 +13,7 @@ class Teacher < ApplicationRecord
   validates_length_of :description, maximum: DESCRIPTION_LIMIT
 
   scope :ordered_by_name, -> { order('surname asc, name asc') }
+  scope :list_for_visitors, -> { ordered_by_name }
 
   # @param [Integer] page
   def self.page_for_administration(page = 1)
