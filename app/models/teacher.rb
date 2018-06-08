@@ -19,6 +19,11 @@ class Teacher < ApplicationRecord
     ordered_by_name.page(page).per(PER_PAGE)
   end
 
+  # @param [Integer] page
+  def self.page_for_visitors(page = 1)
+    list_for_visitors.page(page).per(PER_PAGE)
+  end
+
   def self.entity_parameters
     %i(name surname title image description)
   end
