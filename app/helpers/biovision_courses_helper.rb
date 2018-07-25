@@ -5,6 +5,12 @@ module BiovisionCoursesHelper
     link_to(text, admin_teacher_path(id: entity.id))
   end
 
+  # @param [Teacher] entity
+  # @param [String] text
+  def teacher_link(entity, text = entity.full_name)
+    link_to(text, teacher_path(id: entity.id))
+  end
+
   # @param [CourseLesson] entity
   # @param [String] text
   def admin_course_lesson_link(entity, text = entity.name)
