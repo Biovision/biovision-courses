@@ -10,6 +10,9 @@ class Teacher < ApplicationRecord
 
   mount_uploader :image, TeacherImageUploader
 
+  has_many :course_teachers, dependent: :delete_all
+  has_many :courses, through: :course_teachers
+
   validates_presence_of :name, :surname
   validates_length_of :name, maximum: NAME_LIMIT
   validates_length_of :surname, maximum: NAME_LIMIT
